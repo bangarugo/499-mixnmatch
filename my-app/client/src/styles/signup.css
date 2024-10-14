@@ -51,14 +51,14 @@
     width: 100%;
     padding: 15px;
     background-color: #fdf1ff;
-    border: 2px solid hsla(268, 100%, 62%, 0.438);
+    border: 2px solid hsla(305, 86%, 39%, 0.507);
     border-radius: 8px;
   }
   
   .form button {
     height: 40px;
     width: 100%;
-    background-color: #8075FF;
+    background-color: #ff00ff;
     color: white;
     text-transform: uppercase;
     letter-spacing: 1px;

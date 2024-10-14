@@ -7,6 +7,7 @@ import Register from './components/register'; // Importing Register component
 
 const App = () => {
     return (
+        
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} /> {/* Route for homepage */}

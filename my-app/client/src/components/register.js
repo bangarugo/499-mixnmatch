@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import backgroundImage from '../images/background.jpeg';
 import "../styles/signup.css"; // Ensure this path is correct
 
 const Signup = () => {
@@ -30,7 +31,19 @@ const Signup = () => {
         }
     };
 
+    const loginStyle = {
+        height: '100vh', // Full viewport height
+        width: '100vw', // Full viewport height
+        backgroundImage: `url(${backgroundImage})`, // Set the background image
+        backgroundSize: 'cover', // Cover the entire area
+        backgroundPosition: 'center', // Center the image
+        display: 'flex', // Center content
+        justifyContent: 'center', // Center horizontally
+        alignItems: 'center', // Center vertically
+    };
+
     return (
+        <div style={loginStyle}> {/* Apply the loginStyle here */}
         <div className="wrapper signUp">
             <div className="form">
                 <div className="heading">SIGN UP</div>
@@ -75,6 +88,7 @@ const Signup = () => {
                     Already have an account? <Link to="/login">Login</Link>
                 </p>
             </div>
+        </div>
         </div>
     );
 };

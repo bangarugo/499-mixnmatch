@@ -1,94 +1,96 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f2fa;
-  }
-  
-  .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f7f2fa;
-  }
-  
-  .login-container {
-    width: 90%;
-    max-width: 1000px;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid red;
-    padding: 40px;
-  }
-  
-  .space-left, .space-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .space-left h2, .space-right h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .space-left p, .space-right p {
-    font-size: 16px;
-    color: #888;
-  }
-  
-  .login-box {
-    flex: 2;
-    text-align: center;
-  }
-  
-  .login-box h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .login-form {
-    background-color: #7a0fff;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .login-form label {
-    display: block;
-    color: white;
-    font-size: 12px;
-    margin: 10px 0 5px;
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 3px;
-    background-color: #ddd;
-  }
-  
-  .login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #5e00cc;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  
-  .login-form button:hover {
-    background-color: #480099;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f2fa; /* You might remove this if using a background image */
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../images/background.jpeg'); /* Adjust the path */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+}
+
+.login-container {
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red; /* Keep for debugging, remove if not needed */
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background for contrast */
+}
+
+.space-left, .space-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.space-left h2, .space-right h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.space-left p, .space-right p {
+  font-size: 16px;
+  color: #888;
+}
+
+.login-box {
+  flex: 2;
+  text-align: center;
+}
+
+.login-box h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.login-form {
+  background-color: #ff00ff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.login-form label {
+  display: block;
+  color: white;
+  font-size: 12px;
+  margin: 10px 0 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 3px;
+  background-color: #ddd;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff00ff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.login-form button:hover {
+  background-color: #ff00ff;
+}

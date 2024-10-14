@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/signup.css"; // Ensure this path is correct
+import backgroundImage from '../images/background.jpeg';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(''); // For error messages
     const navigate = useNavigate(); // Use navigate for redirecting
+
+    const loginStyle = {
+        height: '100vh', // Full viewport height
+        width: '100vw', // Full viewport height
+        backgroundImage: `url(${backgroundImage})`, // Set the background image
+        backgroundSize: 'cover', // Cover the entire area
+        backgroundPosition: 'center', // Center the image
+        display: 'flex', // Center content
+        justifyContent: 'center', // Center horizontally
+        alignItems: 'center', // Center vertically
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault(); // Prevent the form from refreshing the page
@@ -29,7 +40,7 @@ const Login = () => {
     };
     
     return (
-        <div className="wrapper signIn">
+        <div style={loginStyle}> {/* Apply the loginStyle here */}
             <div className="form">
                 <div className="heading">LOGIN</div>
                 {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>} {/* Display error message */}
