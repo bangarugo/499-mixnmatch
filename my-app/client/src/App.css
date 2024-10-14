@@ -2,15 +2,6 @@
   text-align: center;
 }
 
-.App-container {
-  background-image: url("https://images.unsplash.com/photo-1581602835355-ef01c46a2fd1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-size: cover; /* Make sure this is set */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  width: 100%; /* Full width */
-  height: 100vh; /* Full height */
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

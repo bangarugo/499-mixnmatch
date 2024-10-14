@@ -1,27 +1,50 @@
 import React from "react";
-import '../styles/homePage.css'; // Make sure this path is correct
-import logo from '../images/ETF-image.jpg'; // Ensure the logo path is correct
+import { Link } from "react-router-dom";
+import '../styles/homePage.css';
+// import background from '../images/background-image.jpeg';
+import closet from '../images/purple-closet.jpg';
 
 const HomePage = () => {
     return (
         <div className="homepage">
-            <header className="homepage-header">
-                <h1>Welcome to ET-FOLIO</h1>
-                <img src={logo} className="homepage-logo" alt="logo" />
-                <h1>Simplifying ETF Investing for Beginners</h1>
-            </header>
+            <nav className="navbar">
+                {/* <img src={background} className="homepage-background" alt="background" /> */}
+                <div className="navbar-links">
+                    <Link to="/home">Home</Link>
+                    <Link to="/closet">Closet</Link>
+                    <Link to="/outfits">Outfits</Link>
+                    <Link to="/profile">Profile</Link>
+                </div>
+            </nav>
 
-            <section className="info-bubbles">
-                <div className="bubble">
-                    <h2>Personalized Recommendations</h2>
+            <div className="background-text">
+                <h1>MIX N' MATCH</h1>
+            </div>
+
+            <div className="homepage-slogan">
+                <p>Your Style</p>
+                {/* <p>Your Way</p> */}
+                <img src={closet} className="slogan-image" alt="closet" /> 
+                <p>Your Way</p>
+            </div>
+
+            {/* <img src={closet} className="slogan-image" alt="closet" />  */}
+
+            <div className="info-section">
+                <div className="info-box">
+                    <h2>Virtual Closet</h2>
+                    <p>Digitize your wardrobe and access it anytime, anywhere.</p>  
                 </div>
-                <div className="bubble">
-                    <h2>Educational Resources</h2>
+            {/* </div> */}
+            {/* <div className="info-section"> */}
+                <div className="info-box">
+                    <h2>AI Stylist</h2>
+                    <p>Get personalized putfit recommendations based on your style and occasions.</p>
+                {/* </div> */}
+
                 </div>
-                <div className="bubble">
-                    <h2>Easiest Way to get a headstart on your portfolio</h2>
-                </div>
-            </section>
+            </div>
+            
         </div>
     );
 };
