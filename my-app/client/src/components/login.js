@@ -22,22 +22,31 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault(); // Prevent the form from refreshing the page
     
-        const response = await fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
     
-        const data = await response.json(); // Parse the JSON response
-        if (response.ok) {
-            console.log(data); // Handle the response from your backend
-            navigate("/"); // Redirect to dashboard on successful login
-        } else {
-            setError(data.error || "Login failed. Please check your credentials."); // Set the error message
+            const data = await response.json(); // Parse the JSON response
+    
+            if (response.ok) {
+                console.log(data); // Handle the response from your backend
+                navigate("/"); // Redirect to dashboard on successful login
+            } else {
+                // If response is not okay, set the error message from the backend
+                setError(data.error || "Login failed. Please check your credentials.");
+            }
+        } catch (error) {
+            setError("An error occurred. Please try again later."); // Handle network/server errors
         }
     };
+    
+    
+    
     
     return (
         <div style={loginStyle}> {/* Apply the loginStyle here */}

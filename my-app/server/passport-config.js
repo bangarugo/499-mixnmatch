@@ -1,41 +1,30 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const User = require("./config"); // Adjust this according to your User model
 
-function initialize(passport) {
-    passport.use(
-        new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
-            try {
-                // Check if user exists
-                const user = await User.findOne({ email });
-                if (!user) {
-                    return done(null, false, { message: "No user with that email" });
-                }
-
-                // Check if password matches
-                const isMatch = await bcrypt.compare(password, user.password);
-                if (isMatch) {
-                    return done(null, user); // Login successful
-                } else {
-                    return done(null, false, { message: "Password is incorrect" });
-                }
-            } catch (error) {
-                return done(error);
-            }
-        })
-    );
-
-    passport.serializeUser((user, done) => {
-        done(null, user.id);
-    });
-
-    passport.deserializeUser(async (id, done) => {
-        try {
-            const user = await User.findById(id);
-            done(null, user);
-        } catch (error) {
-            done(error);
+function initialize(passport, getUserByEmail, getUserById) {
+    // Function to authenticate users
+    const authenticateUsers = async (email, password, done) => {
+        // Get user by email
+        const user = getUserByEmail(email);
+        if (user == null) {
+            return done(null, false, { message: "No user found with that email" });
         }
+        try {
+            if (await bcrypt.compare(password, user.password)) {
+                return done(null, user);
+            } else {
+                return done(null, false, { message: "Password Incorrect" });
+            }
+        } catch (e) {
+            console.log(e);
+            return done(e);
+        }
+    };
+
+    passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUsers));
+    passport.serializeUser((user, done) => done(null, user.id));
+    passport.deserializeUser((id, done) => {
+        return done(null, getUserById(id));
     });
 }
 
