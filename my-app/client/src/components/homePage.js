@@ -6,7 +6,7 @@ import closet from '../images/purple-closet.jpg';
 
 const HomePage = () => {
     return (
-        <div className="homepage">
+        <div className="homepage ">
             <nav className="navbar">
                 {/* <img src={background} className="homepage-background" alt="background" /> */}
                 <div className="navbar-links">

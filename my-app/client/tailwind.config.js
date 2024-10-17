@@ -11,6 +11,9 @@ export default {
         "magnolia": "#F8F0FB",
         "ash-gray": "#CAD5CA",
       },
+      spacing: {
+        '128': '42rem', // Change this value as needed
+      },
     },
   },
   plugins: [],

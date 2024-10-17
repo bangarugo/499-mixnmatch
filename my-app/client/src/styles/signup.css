@@ -69,7 +69,7 @@
     margin-top: 1.5rem;
     border-radius: 8px;
   }
-  
+/*   
   @media (min-width: 542px) {
     body {
       display: flex;
@@ -93,7 +93,7 @@
       max-width: 80%;
       height: auto;
     }
-  }
+  } */
   
   button:hover {
     filter: brightness(95%);

@@ -14,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../images/background.jpeg'); /* Adjust the path */
+  background-image: url("../images/background.jpeg"); /* Adjust the path */
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the image */
 }
@@ -26,10 +26,16 @@ body {
   justify-content: space-between;
   border: 1px solid red; /* Keep for debugging, remove if not needed */
   padding: 40px;
-  background-color: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background for contrast */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Optional: semi-transparent background for contrast */
 }
 
-.space-left, .space-right {
+.space-left,
+.space-right {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -37,12 +43,14 @@ body {
   text-align: center;
 }
 
-.space-left h2, .space-right h2 {
+.space-left h2,
+.space-right h2 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
-.space-left p, .space-right p {
+.space-left p,
+.space-right p {
   font-size: 16px;
   color: #888;
 }
