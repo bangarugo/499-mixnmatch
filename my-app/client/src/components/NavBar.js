@@ -5,7 +5,7 @@ const NavBar = () => {
     <header className="flex justify-between p-8 bg-electric-indigo mb-8 text-white w-full">
       <h1 className="text-4xl font-bold ">Mix n' Match</h1>
       <nav className="text-2xl flex items-stretch space-x-5">
-        <Link to="/home">
+        <Link to="/">
           <h2>Home</h2>
         </Link>
         <Link to="/closet">
