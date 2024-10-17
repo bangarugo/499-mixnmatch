@@ -5,6 +5,7 @@ import icon1 from "../images/shirt.webp";
 import icon2 from "../images/closet.webp";
 import icon3 from "../images/outfit.webp";
 import icon4 from "../images/profile.webp";
+import shuffle from "../images/shuffle.jpeg";
 const mainPage = () => {
   return (
     <div className="homepage h-screen bg-gradient-to-r from-pink-400 to-purple-600 ">
@@ -41,15 +42,18 @@ const mainPage = () => {
               <img src={icon4} />
             </button>
           </div>
-          <button className="mix-button bg-yellow-300">Mix it up !</button>
+          <button className="mix-button p-6 bg-white w-48 h-12 text-xl text-electric-indigo rounded-full border flex justify-between items-center  ">
+            <img src={shuffle} className="h-12 w-12 " />
+            <p className="font-bold ">Mix it up!</p>
+          </button>
         </section>
 
         <section
-          className="bottom-cards flex flex-row w-full p-6 justify-between space-x-5
-        bg-gradient-to-r from-pink-400 to-purple-600 text-white "
+          className="bottom-cards flex flex-row w-full p-6 justify-center space-x-12
+        bg-gradient-to-r from-pink-400 to-purple-600 text-white round-  "
         >
           <div className="virtual-closet">
-            <div className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 ml-36">
+            <div className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 backdrop-blur-md shadow-lg rounded-md   ">
               <h3 className="text-3xl font-bold">Virtual Closet</h3>
               <p className="leading-relaxed">
                 Digitize your wardrobe and access it anytime, anywhere.
@@ -57,7 +61,10 @@ const mainPage = () => {
             </div>
           </div>
           <div className="ai-stylist">
-            <div className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 mr-36  ">
+            <div
+              className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 rounded-md 
+              "
+            >
               <h3 className="text-3xl font-bold">AI Stylist</h3>
               <p>
                 Get personalized outfit recommendations based on your style and
