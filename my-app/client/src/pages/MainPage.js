@@ -8,12 +8,12 @@ import icon4 from "../images/profile.webp";
 import shuffle from "../images/shuffle.jpeg";
 const mainPage = () => {
   return (
-    <div className="homepage h-screen bg-gradient-to-r from-pink-400 to-purple-600 ">
+    <div className="homepage h-screen bg-gradient-to-r from-pink-400 to-purple-700 ">
       <NavBar />
-      <main className="bg-gradient-to-r from-pink-400 to-purple-600 w-screen h-screen">
+      <main className="bg-gradient-to-r from-pink-400 to-purple-700 w-screen h-screen">
         <section
           className="logo-section flex flex-col justify-center items-center space-y-4 text-center
-        bg-gradient-to-r from-pink-400 to-purple-600 mt-0 "
+        bg-gradient-to-r from-pink-400 to-purple-700 mt-0 "
         >
           <h1 className="text-6xl text-white font-bold w-full ">
             Your Style, Your Way
@@ -49,23 +49,23 @@ const mainPage = () => {
         </section>
         <section
           className="bottom-cards flex flex-row w-full p-6 justify-center space-x-12
-        bg-gradient-to-r from-pink-400 to-purple-600 text-white round-  "
+        bg-gradient-to-r from-pink-400 to-purple-700 text-white round-  "
         >
           <div className="virtual-closet">
-            <div className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 bg-white/30 backdrop-blur-md shadow-lg rounded-md   ">
+            <div className="card border w-80 h-36 p-3 text-center flex flex-col space-y-2 bg-white/30 backdrop-blur-md shadow-lg rounded-md   ">
               <h3 className="text-3xl font-bold">Virtual Closet</h3>
-              <p className="leading-relaxed">
+              <p className="leading-relaxed text-l">
                 Digitize your wardrobe and access it anytime, anywhere.
               </p>
             </div>
           </div>
           <div className="ai-stylist">
             <div
-              className="card border w-80 h-36 p-4 text-center flex flex-col space-y-2 rounded-md 
+              className="card border w-80 h-36 p-3 text-center flex flex-col space-y-2 rounded-md 
               bg-white/30 backdrop-blur-md shadow-lg "
             >
               <h3 className="text-3xl font-bold">AI Stylist</h3>
-              <p>
+              <p className="leading-relaxed text-l">
                 Get personalized outfit recommendations based on your style and
                 occasions.
               </p>

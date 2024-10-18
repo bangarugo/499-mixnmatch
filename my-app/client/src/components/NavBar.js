@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
-    <header className="flex justify-between p-8 bg-electric-indigo mb-8 text-white w-full">
+    <header
+      className="flex justify-between p-8 bg-gradient-to-r from-blue-700 to-purple-700
+     mb-8 text-white w-full "
+    >
       <h1 className="text-4xl font-bold ">Mix n' Match</h1>
       <nav className="text-2xl flex items-stretch space-x-5">
         <Link to="/">
