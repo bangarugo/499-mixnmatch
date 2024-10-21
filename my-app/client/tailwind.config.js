@@ -12,7 +12,7 @@ export default {
         "ash-gray": "#CAD5CA",
       },
       spacing: {
-        '128': '42rem', // Change this value as needed
+        '128': '36rem', // Change this value as needed
       },
     },
   },
