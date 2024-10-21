@@ -108,19 +108,19 @@ nav a {
 
 .icon-button.home-icon {
     background-image: url("../images/home-icon.png"); 
-    background-size: cover; 
+    background-size: 75px; 
     background-position: center; 
 }
 
 .icon-button.outfit-icon {
     background-image: url("../images/outfit-icon.jpeg"); 
-    background-size: cover; 
+    background-size: 75px; 
     background-position: center; 
 }
 
 .icon-button.closet-icon {
     background-image: url("../images/closet-icon.png"); 
-    background-size: cover; 
+    background-size: 60px; 
     background-position: center; 
 }
 
