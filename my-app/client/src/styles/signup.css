@@ -1,105 +1,104 @@
 * {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.illustration img {
+  max-height: 500px;
+  width: auto;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+}
+
+.wrapper p {
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+/* Add background color and styling for the form */
+.form {
+  padding: 1.5rem;
+  flex-basis: 100vw;
+  background-color: white; /* White background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form .heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.or {
+  margin: 1rem 0;
+}
+
+.form label {
+  display: block;
+  margin: 1.25rem 0 1rem 0;
+}
+
+.form input {
+  height: 40px;
+  width: 100%;
+  padding: 15px;
+  background-color: #fdf1ff;
+  border: 2px solid hsla(305, 86%, 39%, 0.507);
+  border-radius: 8px;
+}
+
+.form button {
+  height: 40px;
+  width: 100%;
+  background-color: #ff00ff;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  border-radius: 8px;
+}
+
+@media (min-width: 542px) {
+  body {
+    display: flex;
+    justify-content: center;
   }
-  
-  .illustration img {
-    max-height: 500px;
-    width: auto;
-  }
-  
   .wrapper {
     display: flex;
     height: 100vh;
     align-items: center;
-  }
-  
-  .wrapper p {
-    font-size: 0.85rem;
-    margin-top: 1rem;
-  }
-  
-  /* Add background color and styling for the form */
-  .form {
+    justify-content: space-around;
     padding: 1.5rem;
-    flex-basis: 100vw;
-    background-color: white; /* White background */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 1100px;
   }
-  
-  .form .heading {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
+  .form {
+    flex-basis: auto;
   }
-  
-  .or {
-    margin: 1rem 0;
-  }
-  
-  .form label {
-    display: block;
-    margin: 1.25rem 0 1rem 0;
-  }
-  
   .form input {
-    height: 40px;
-    width: 100%;
-    padding: 15px;
-    background-color: #fdf1ff;
-    border: 2px solid hsla(305, 86%, 39%, 0.507);
-    border-radius: 8px;
+    width: 250px;
   }
-  
-  .form button {
-    height: 40px;
-    width: 100%;
-    background-color: #ff00ff;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-    display: block;
-    margin: 0 auto;
-    font-weight: bold;
-    margin-top: 1.5rem;
-    border-radius: 8px;
+  .illustration img {
+    max-width: 80%;
+    height: auto;
   }
-/*   
-  @media (min-width: 542px) {
-    body {
-      display: flex;
-      justify-content: center;
-    }
-    .wrapper {
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      justify-content: space-around;
-      padding: 1.5rem;
-      max-width: 1100px;
-    }
-    .form {
-      flex-basis: auto;
-    }
-    .form input {
-      width: 250px;
-    }
-    .illustration img {
-      max-width: 80%;
-      height: auto;
-    }
-  } */
-  
-  button:hover {
-    filter: brightness(95%);
-  }
-  
-  button:active {
-    transform: scale(0.98);
-  }
-  
+}
+
+button:hover {
+  filter: brightness(95%);
+}
+
+button:active {
+  transform: scale(0.98);
+}
