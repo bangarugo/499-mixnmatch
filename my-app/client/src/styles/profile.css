@@ -12,6 +12,16 @@ body {
     
 }
 
+.profile-picture img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 5px solid rgb(203, 58, 140);
+    cursor: pointer;
+    object-fit: cover; /* Ensures the image fills the container without distortion */
+}
+
+
 .container {
     width: 100%;
     max-width: 1200px;

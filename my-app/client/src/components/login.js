@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import backgroundImage from '../images/background.jpeg';
 
-const Login = () => {
+const Login = ({ handleLogin }) => { // Accept handleLogin as a prop
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(''); // For error messages
@@ -10,7 +10,7 @@ const Login = () => {
 
     const loginStyle = {
         height: '100vh', // Full viewport height
-        width: '100vw', // Full viewport height
+        width: '100vw', // Full viewport width
         backgroundImage: `url(${backgroundImage})`, // Set the background image
         backgroundSize: 'cover', // Cover the entire area
         backgroundPosition: 'center', // Center the image
@@ -19,42 +19,33 @@ const Login = () => {
         alignItems: 'center', // Center vertically
     };
 
-    const handleLogin = async (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault(); // Prevent the form from refreshing the page
-    
-        try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-    
-            const data = await response.json(); // Parse the JSON response
-    
-            if (response.ok) {
-                console.log(data); // Handle the response from your backend
-                navigate("/"); // Redirect to dashboard on successful login
-            } else {
-                // If response is not okay, set the error message from the backend
-                setError(data.error || "Login failed. Please check your credentials.");
-            }
-        } catch (error) {
-            setError("An error occurred. Please try again later."); // Handle network/server errors
+
+        const response = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json(); // Parse the JSON response
+        if (response.ok) {
+            handleLogin(); // Call handleLogin to update auth state
+            navigate("/"); // Redirect to dashboard on successful login
+        } else {
+            setError(data.error || "Login failed. Please check your credentials."); // Set the error message
         }
     };
-    
-    
-    
-    
+
     return (
-        <div style={loginStyle}> {/* Apply the loginStyle here */}
+        <div style={loginStyle}>
             <div className="form">
-                <div className="heading">LOGIN</div>
-                {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>} {/* Display error message */}
-                <form onSubmit={handleLogin}>
-                    <div>
+                <div className="login-form heading">LOGIN</div>
+                {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+                <form onSubmit={handleLoginSubmit}>
+                    <div className="login-form label">
                         <label htmlFor="e-mail">E-Mail</label>
                         <input
                             type="email"
@@ -65,7 +56,7 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <div>
+                    <div className="login-form label">
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
@@ -78,8 +69,8 @@ const Login = () => {
                     </div>
                     <button type="submit">Submit</button>
                 </form>
-                <p>
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                <p className="signup-link">
+                    Don't have an account? <Link to="/register">Sign Up</Link>
                 </p>
             </div>
         </div>

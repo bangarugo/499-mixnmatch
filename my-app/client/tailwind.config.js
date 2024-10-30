@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-//prettier-ignore
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -12,7 +11,7 @@ export default {
         "ash-gray": "#CAD5CA",
       },
       spacing: {
-        '128': '36rem', // Change this value as needed
+        '128': '36rem',
       },
     },
   },

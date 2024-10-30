@@ -1,15 +1,25 @@
 import React from "react";
-import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 import closetImage from "../images/purple-closet.jpg";
 import icon1 from "../images/shirt.webp";
 import icon2 from "../images/closet.webp";
 import icon3 from "../images/outfit.webp";
 import icon4 from "../images/profile.webp";
 import shuffle from "../images/shuffle.jpeg";
-const mainPage = () => {
+
+const MainPage = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
+
+  const handleMixClick = () => {
+    if (isAuthenticated) {
+      navigate('/closet');  // Redirect to closet if logged in
+    } else {
+      navigate('/login');   // Redirect to login if not authenticated
+    }
+  };
+
   return (
-    <div className="homepage h-screen bg-gradient-to-r from-pink-400 to-purple-700 ">
-      <NavBar />
+    <div className="homepage h-screen bg-gradient-to-r from-pink-400 to-purple-700">
       <main className="bg-gradient-to-r from-pink-400 to-purple-700 w-screen h-screen">
         <section
           className="logo-section flex flex-col justify-center items-center space-y-4 text-center
@@ -30,22 +40,25 @@ const mainPage = () => {
           </div>
           <div className="icon-section flex space-x-8 p-4 ">
             <button className="icon h-20 w-20 rounded-full bg-red-400 p-4">
-              <img src={icon1} />
+              <img src={icon1} alt="shirt icon" />
             </button>
             <button className="icon h-20 w-20 rounded-full bg-blue-400 p-4 ">
-              <img src={icon2} />
+              <img src={icon2} alt="closet icon" />
             </button>
             <button className="icon h-20 w-20 rounded-full bg-green-400 p-4">
-              <img src={icon3} />
+              <img src={icon3} alt="outfit icon" />
             </button>
             <button className="icon h-20 w-20 rounded-full bg-yellow-400 p-4">
-              <img src={icon4} />
+              <img src={icon4} alt="profile icon" />
             </button>
           </div>
-          <button className="mix-button p-6 bg-white w-48 h-12 text-xl text-electric-indigo rounded-full border flex justify-between items-center  ">
-            <img src={shuffle} className="h-12 w-12 " />
-            <p className="font-bold ">Mix it up!</p>
-          </button>
+          <button
+        onClick={handleMixClick}
+        className="mix-button p-6 bg-white w-48 h-12 text-xl text-electric-indigo rounded-full border flex justify-between items-center"
+      >
+        <img src={shuffle} className="h-12 w-12" alt="shuffle icon" />
+        <p className="font-bold">Mix it up!</p>
+      </button>
         </section>
         <section
           className="bottom-cards flex flex-row w-full p-6 justify-center space-x-12
@@ -77,4 +90,4 @@ const mainPage = () => {
   );
 };
 
-export default mainPage;
+export default MainPage;
