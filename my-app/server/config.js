@@ -1,15 +1,8 @@
 require('dotenv').config();  // Load environment variables from .env
-
 const mongoose = require("mongoose");
 
-// Log MONGO_URI to check if it is loaded correctly (remove this later)
-console.log("MONGO_URI:", process.env.MONGO_URI);
-
 // Connect to MongoDB
-const connect = mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const connect = mongoose.connect(process.env.MONGO_URI);
 
 connect
   .then(() => {
@@ -19,11 +12,12 @@ connect
       console.error("Database connection error:", err);
   });
 
-// Define the schema
+// Define the schema with profilePic field
 const Loginschema = new mongoose.Schema({
     firstName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    profilePic: { type: String }  // Field to store the profile picture path
 });
 
 // Create and export the model

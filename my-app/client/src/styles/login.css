@@ -1,3 +1,4 @@
+/* Reset some default styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,99 +7,101 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f2fa; /* You might remove this if using a background image */
+  background-color: #f7f2fa; /* Optional: remove if using background image */
 }
 
+/* Styles for the login page container */
 .login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../images/background.jpeg"); /* Adjust the path */
-  background-size: cover; /* Cover the entire area */
-  background-position: center; /* Center the image */
+  background-image: url('../images/background.jpeg'); /* Adjust the path */
+  background-size: cover;
+  background-position: center;
 }
 
+/* Container for the login form */
 .login-container {
   width: 90%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid red; /* Keep for debugging, remove if not needed */
-  padding: 40px;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Optional: semi-transparent background for contrast */
-}
-
-.space-left,
-.space-right {
-  flex: 1;
+  max-width: 400px; /* Adjusted to be a little smaller */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent for contrast */
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
-.space-left h2,
-.space-right h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.space-left p,
-.space-right p {
-  font-size: 16px;
-  color: #888;
-}
-
-.login-box {
-  flex: 2;
-  text-align: center;
-}
-
-.login-box h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
+/* Heading styles */
+.heading {
+  font-size: 32px;
   font-weight: bold;
+  color: #333; /* Dark text color */
+  text-align: center; /* Center the heading */
 }
 
+/* Form styles */
 .login-form {
-  background-color: #ff00ff;
-  padding: 20px;
-  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Label styles */
 .login-form label {
   display: block;
-  color: white;
-  font-size: 12px;
+  color: #333; /* Dark label color */
+  font-size: 14px; /* Increased font size for labels */
   margin: 10px 0 5px;
 }
 
+/* Input field styles */
 .login-form input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: none;
+  border: 1px solid #ccc; /* Border for input fields */
   border-radius: 3px;
-  background-color: #ddd;
+  background-color: #f0f0f0; /* Light input background */
+  color: #333; /* Dark input text */
+  font-size: 14px; /* Input text size */
 }
 
+/* Button styles */
 .login-form button {
   width: 100%;
   padding: 10px;
-  background-color: #ff00ff;
+  background-color: #ff00ff; /* Button color */
   border: none;
   color: white;
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;
+  margin-top: 10px; /* Space above button */
 }
 
 .login-form button:hover {
-  background-color: #ff00ff;
+  background-color: #e600e6; /* Darker on hover */
+}
+
+.signup-link {
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Space above link */
+  color: black; /* Ensure text is black */
+}
+
+.signup-link a {
+  color: #007bff; /* Bootstrap primary blue color */
+  text-decoration: none; /* Remove underline */
+}
+
+.signup-link a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Error message styles */
+.error-message {
+  color: red; /* Red for errors */
+  text-align: center; /* Center the error message */
+  margin-bottom: 10px; /* Space below error message */
 }

@@ -1,104 +1,101 @@
+/* Reset some default styles */
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 
-.illustration img {
-  max-height: 500px;
-  width: auto;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f2fa; /* Optional: remove if using background image */
 }
 
+/* Styles for the signup page container */
 .wrapper {
   display: flex;
-  height: 100vh;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-image: url('../images/background.jpeg'); /* Adjust the path */
+  background-size: cover;
+  background-position: center;
 }
 
-.wrapper p {
-  font-size: 0.85rem;
-  margin-top: 1rem;
-}
-
-/* Add background color and styling for the form */
+/* Container for the signup form */
 .form {
-  padding: 1.5rem;
-  flex-basis: 100vw;
-  background-color: white; /* White background */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 90%;
+  max-width: 400px; /* Adjusted to be a little smaller */
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent for contrast */
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
-.form .heading {
-  font-size: 1.5rem;
+/* Heading styles */
+.heading {
+  font-size: 32px;
   font-weight: bold;
-  text-align: center;
+  color: #333; /* Dark text color */
+  text-align: center; /* Center the heading */
 }
 
-.or {
-  margin: 1rem 0;
-}
-
-.form label {
+/* Form styles */
+label {
   display: block;
-  margin: 1.25rem 0 1rem 0;
+  color: #333; /* Dark label color */
+  font-size: 14px; /* Increased font size for labels */
+  margin: 10px 0 5px;
 }
 
-.form input {
-  height: 40px;
+/* Input field styles */
+input {
   width: 100%;
-  padding: 15px;
-  background-color: #fdf1ff;
-  border: 2px solid hsla(305, 86%, 39%, 0.507);
-  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; /* Border for input fields */
+  border-radius: 3px;
+  background-color: #f0f0f0; /* Light input background */
+  color: #333; /* Dark input text */
+  font-size: 14px; /* Input text size */
 }
 
-.form button {
-  height: 40px;
+/* Button styles */
+button {
   width: 100%;
-  background-color: #ff00ff;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  padding: 10px;
+  background-color: #ff00ff; /* Button color */
   border: none;
-  display: block;
-  margin: 0 auto;
-  font-weight: bold;
-  margin-top: 1.5rem;
-  border-radius: 8px;
-}
-
-@media (min-width: 542px) {
-  body {
-    display: flex;
-    justify-content: center;
-  }
-  .wrapper {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: space-around;
-    padding: 1.5rem;
-    max-width: 1100px;
-  }
-  .form {
-    flex-basis: auto;
-  }
-  .form input {
-    width: 250px;
-  }
-  .illustration img {
-    max-width: 80%;
-    height: auto;
-  }
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 10px; /* Space above button */
 }
 
 button:hover {
-  filter: brightness(95%);
+  background-color: #e600e6; /* Darker on hover */
 }
 
-button:active {
-  transform: scale(0.98);
+.signup-link {
+  text-align: center; /* Center the text */
+  margin-top: 20px; /* Space above link */
+  color: black; /* Ensure text is black */
+}
+
+.signup-link a {
+  color: #007bff; /* Bootstrap primary blue color */
+  text-decoration: none; /* Remove underline */
+}
+
+.signup-link a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Error message styles */
+.error-message {
+  color: red; /* Red for errors */
+  text-align: center; /* Center the error message */
+  margin-bottom: 10px; /* Space below error message */
 }
