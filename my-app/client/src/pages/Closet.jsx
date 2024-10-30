@@ -11,10 +11,10 @@ const Closet = () => {
   return (
     <div className="page-background bg-medium-slate-blue ">
       <NavBar />
-      <div className="bg-medium-slate-blue h-screen w-screen pl-8 pr-8 pb-8 mb-8">
+      <div className="bg-medium-slate-blue h-screen w-screen pl-8 pr-8 pb-8 mb-8 overflow-hidden">
         <main className="bg-blue-400 h-full p-4 flex flex-col space-y-3 text-center rounded drop-shadow-md">
           <header className="bg-yellow-600 p-2 ">
-            <h2 className="text-3xl">Your Closet</h2>
+            <h2 className="text-3xl animate-fadeUp">Your Closet</h2>
           </header>
           <section
             className="clothing-options h-16 w-2/3 p-2 flex flex-row space-x-4
@@ -46,7 +46,8 @@ const Closet = () => {
               <input
                 type="text"
                 placeholder="Search by name"
-                className="p-2 text-black  rounded 
+                className="p-2 text-black rounded w-42
+                
                 focus:outline-none focus:ring focus:ring-medium-slate-blue"
               />
               <button className="bg-electric-indigo h-12 w-24 rounded ">
@@ -57,7 +58,7 @@ const Closet = () => {
               </button>
             </div>
             <button
-              className="bg-yellow-500 text-black h-12 w-24 rounded 
+              className="bg-yellow-500  h-12 w-24 rounded 
             "
             >
               Favorites
@@ -65,7 +66,7 @@ const Closet = () => {
           </div>
           <section
             className="closet-items 
-          bg-ash-gray h-full p-2"
+          bg-stone-400 drop-shadow-lg rounded h-full p-4 overflow-y-auto"
           >
             <SquareGrid />
           </section>

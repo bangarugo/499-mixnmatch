@@ -6,7 +6,9 @@ const NavBar = () => {
       className="flex justify-between p-8 bg-gradient-to-r from-blue-700 to-purple-700
      mb-8 text-white w-full "
     >
-      <h1 className="text-4xl font-bold ">Mix n' Match</h1>
+      <Link to="/">
+        <h1 className="text-4xl font-bold ">Mix n' Match</h1>
+      </Link>
       <nav className="text-2xl flex items-stretch space-x-5">
         <Link to="/">
           <h2>Home</h2>
