@@ -9,9 +9,9 @@ const Closet = () => {
     setFilter(filter);
   };
   return (
-    <div className="page-background bg-medium-slate-blue animate-fadeDown ">
+    <div className="page-background bg-medium-slate-blue  ">
       <NavBar />
-      <div className="bg-medium-slate-blue h-screen w-screen pl-8 pr-8 pb-8 mb-8 overflow-hidden">
+      <div className="bg-medium-slate-blue h-screen w-screen pt-28  pl-8 pr-8 pb-8 mb-8 overflow-hidden animate-fadeDown fixed top-0 left-0">
         <main className="bg-blue-400 h-full p-4 flex flex-col space-y-3 text-center rounded drop-shadow-md">
           <header className="font-bold p-2 ">
             <h2 className="text-3xl animate-fadeUp">Your Closet</h2>
@@ -63,11 +63,13 @@ const Closet = () => {
               Favorites
             </button>
           </div>
-          <section className="closet-items bg-stone-400 drop-shadow-lg rounded h-full p-4">
-            <div className="absolute inset-0 overflow-y-auto">
-              <div className="py-8">
+          <section className="closet-items-container bg-stone-400 drop-shadow-lg rounded h-full p-4">
+            <div className=" absolute inset-0 overflow-y-auto  ">
+              <div className="top-sticky-div sticky top-0 -mx-1 h-12 bg-stone-400 z-10"></div>
+              <div className="square-grid-container overflow-y-auto ">
                 <SquareGrid />
               </div>
+              <div className="bottom-sticky-div  sticky bottom-0 -mx-1 h-12 bg-stone-400 z-10"></div>
             </div>
           </section>
         </main>
@@ -75,5 +77,14 @@ const Closet = () => {
     </div>
   );
 };
+{
+  /* <section className="closet-items bg-stone-400 drop-shadow-lg rounded h-full p-4">
+<div className="absolute inset-0 overflow-y-auto rel ">
+  <div className="top-fixed-div bg-stone-400 w-full fixed top-0 h-12 "></div>
+  <SquareGrid />
+  <div className="bottom-fixed-div bg-stone-400 w-full fixed bottom-0 h-12"></div>
+</div>
+</section> */
+}
 
 export default Closet;

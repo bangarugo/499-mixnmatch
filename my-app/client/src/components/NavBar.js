@@ -4,7 +4,7 @@ const NavBar = () => {
   return (
     <header
       className="flex justify-between p-8 bg-gradient-to-r from-blue-700 to-purple-700
-     mb-8 text-white w-full "
+     mb-8 fixed top-0 left-0 z-50 text-white w-full "
     >
       <Link to="/">
         <h1 className="text-4xl font-bold ">Mix n' Match</h1>
