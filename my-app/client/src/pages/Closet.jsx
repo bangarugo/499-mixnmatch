@@ -9,11 +9,11 @@ const Closet = () => {
     setFilter(filter);
   };
   return (
-    <div className="page-background bg-medium-slate-blue ">
+    <div className="page-background bg-medium-slate-blue animate-fadeDown ">
       <NavBar />
       <div className="bg-medium-slate-blue h-screen w-screen pl-8 pr-8 pb-8 mb-8 overflow-hidden">
         <main className="bg-blue-400 h-full p-4 flex flex-col space-y-3 text-center rounded drop-shadow-md">
-          <header className="bg-yellow-600 p-2 ">
+          <header className="font-bold p-2 ">
             <h2 className="text-3xl animate-fadeUp">Your Closet</h2>
           </header>
           <section
@@ -46,8 +46,7 @@ const Closet = () => {
               <input
                 type="text"
                 placeholder="Search by name"
-                className="p-2 text-black rounded w-42
-                
+                className="searchbar p-2 text-black rounded w-42
                 focus:outline-none focus:ring focus:ring-medium-slate-blue"
               />
               <button className="bg-electric-indigo h-12 w-24 rounded ">
@@ -64,11 +63,12 @@ const Closet = () => {
               Favorites
             </button>
           </div>
-          <section
-            className="closet-items 
-          bg-stone-400 drop-shadow-lg rounded h-full p-4 overflow-y-auto"
-          >
-            <SquareGrid />
+          <section className="closet-items bg-stone-400 drop-shadow-lg rounded h-full p-4">
+            <div className="absolute inset-0 overflow-y-auto">
+              <div className="py-8">
+                <SquareGrid />
+              </div>
+            </div>
           </section>
         </main>
       </div>
