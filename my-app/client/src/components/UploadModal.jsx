@@ -12,7 +12,7 @@ const UploadModal = ({ isOpen, toggleModal }) => {
           onClick={toggleModal}
         >
           <div
-            className="flex flex-col space-y-5 items-center relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-8 rounded shadow-lg" 
+            className="flex flex-col justify-between items-center space-y-6 relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-6 rounded shadow-lg"
             onClick={(e) => e.stopPropagation()} // stop modal from closing when clicking anywhere on it
           >
             <button
@@ -22,8 +22,11 @@ const UploadModal = ({ isOpen, toggleModal }) => {
               &times;
             </button>
 
-            <h2 className="upload-header text-xl font-bold text-black "> Upload Files </h2>
-            <button className="upload-box bg-white h-1/2 w-3/4 xl:w-3/5 "></button> 
+            <h2 className="upload-header text-xl font-bold text-black ">
+              {" "}
+              Upload Files{" "}
+            </h2>
+            <button className="upload-box bg-white h-1/2 w-3/4 xl:w-3/5 "></button>
             <div className="save-options flex flex-row space-x-5 h-1/6 w-3/5 justify-evenly items-center">
               <button className="bg-green-600 h-12 w-24 rounded">Save</button>
               <button className="bg-red-600 h-12 w-24 rounded">Discard</button>
