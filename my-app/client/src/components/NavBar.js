@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <header
-      className="flex justify-between p-8 bg-gradient-to-r from-blue-700 to-purple-700
+      className="flex justify-between p-6 bg-gradient-to-r from-blue-700 to-purple-700
      mb-8 fixed top-0 left-0 z-50 text-white w-full "
     >
       <Link to="/">

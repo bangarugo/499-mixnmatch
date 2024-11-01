@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import SquareGrid from "../components/SquareGrid";
+import UploadModal from "../components/UploadModal";
 
 const Closet = () => {
   const [currentFilter, setFilter] = useState("All");
+  const [isModalOpen, setModalOpen] = useState(false);
   const filterOptions = ["All", "Headwear", "Tops", "Bottoms", "Footwear"];
+
   const handleFilter = (filter) => {
     setFilter(filter);
   };
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   return (
     <div className="page-background bg-medium-slate-blue  ">
       <NavBar />
@@ -46,7 +53,7 @@ const Closet = () => {
               <input
                 type="text"
                 placeholder="Search by name"
-                className="searchbar p-2 text-black rounded w-42
+                className="search-bar p-2 text-black rounded w-42
                 focus:outline-none focus:ring focus:ring-medium-slate-blue"
               />
               <button className="bg-electric-indigo h-12 w-24 rounded ">
@@ -63,13 +70,26 @@ const Closet = () => {
               Favorites
             </button>
           </div>
-          <section className="closet-items-container bg-stone-400 drop-shadow-lg rounded h-full p-4">
-            <div className=" absolute inset-0 overflow-y-auto  ">
-              <div className="top-sticky-div sticky top-0 -mx-1 h-12 bg-stone-400 z-10"></div>
-              <div className="square-grid-container overflow-y-auto ">
+          <section className="closet-items-container bg-stone-400 drop-shadow-lg rounded h-3/4 p-4">
+            <div className=" inner-closet-container flex flex-col w-full h-full  ">
+              <div className=" sticky-top-div bg-stone-400 sticky top-0 items-center justify-center text-xl font-bold px-2 pb-4">
+                {currentFilter}
+              </div>
+              <div className="closet-grid-container bg-stone-400 overflow-y-auto">
                 <SquareGrid />
               </div>
-              <div className="bottom-sticky-div  sticky bottom-0 -mx-1 h-12 bg-stone-400 z-10"></div>
+              <div className="sticky-bottom-div bg-stone-400 sticky bottom-0 mt-4">
+                <button
+                  className=" add-item-button bg-green-500 h-12 w-36 text-lg font-bold rounded
+                  transition ease-in-out delay-50
+                  hover:-translate-y-1 hover:scale-110"
+                  onClick={toggleModal}
+                >
+                  Add item
+                </button>
+                {/* pass props to UploadModal component(dictates whether modal is visible) */}
+                <UploadModal isOpen={isModalOpen} toggleModal={toggleModal} />
+              </div>
             </div>
           </section>
         </main>
@@ -78,13 +98,17 @@ const Closet = () => {
   );
 };
 {
-  /* <section className="closet-items bg-stone-400 drop-shadow-lg rounded h-full p-4">
-<div className="absolute inset-0 overflow-y-auto rel ">
-  <div className="top-fixed-div bg-stone-400 w-full fixed top-0 h-12 "></div>
-  <SquareGrid />
-  <div className="bottom-fixed-div bg-stone-400 w-full fixed bottom-0 h-12"></div>
+  /* <div
+className="top-sticky-div sticky top-0 -mx-1 h-14 bg-stone-400 z-10 
+flex items-center justify-center text-xl font-bold
+"
+>
+{currentFilter}
 </div>
-</section> */
+<div className="square-grid-container overflow-y-auto ">
+<SquareGrid />
+</div>
+<div className="bottom-sticky-div  sticky bottom-0 -mx-1 h-12 bg-stone-400 z-10"></div> */
 }
 
 export default Closet;
