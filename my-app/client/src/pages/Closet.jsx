@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../components/NavBar";
-import SquareGrid from "../components/SquareGrid";
+import SquareGrid from "../components/SquareGridY";
 import UploadModal from "../components/UploadModal";
 
 const Closet = () => {
