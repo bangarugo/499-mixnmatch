@@ -16,7 +16,6 @@ const SquareGrid = () => {
       className="square-grid-outer-div h-full pl-8 pr-4 
       grid gap-4
       grid-cols-2 sm:grid-cols-3 sm:pl-4   md:grid-cols-3 lg:pl-8    lg:grid-cols-5 xl:grid-cols-8 xl:pl-5
-      
        "
     >
       {squaresArray.map((index) => (
