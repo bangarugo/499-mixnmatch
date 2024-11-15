@@ -7,9 +7,9 @@ const SearchFits = () => {
         className="bg-white text-black text-center p-2 ring-1  hover:ring-red-300 outline-none"
         id="name"
         type="text"
-        placeholder="Search by name!"
+        placeholder="Search by name"
       ></input>
-      <button className="bg-medium-slate-blue p-2">Filters</button>
+      <button className="bg-electric-indigo p-2">Filters</button>
     </div>
   );
 };

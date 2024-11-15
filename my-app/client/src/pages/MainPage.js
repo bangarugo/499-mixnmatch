@@ -25,9 +25,7 @@ const mainPage = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-          >
-            Image
-          </div>
+          ></div>
           <div className="icon-section flex space-x-8 p-4 ">
             <button className="icon h-20 w-20 rounded-full bg-red-400 p-4">
               <img src={icon1} />

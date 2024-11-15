@@ -10,6 +10,17 @@ export default {
         "medium-slate-blue": "#8075FF",
         "magnolia": "#F8F0FB",
         "ash-gray": "#CAD5CA",
+        "mint-green" : "#BFEDEF",
+        "tiffany-blue": "#98E2C6",
+        "fairy-tale" : "#D9B8C4",
+        "mountbatten-pink":"#957186",
+        "eggplant":"#703D57",
+        "rich-black":"#121420",
+        "gunmetal":"#1B2432",
+        "timberwolf":"#CBD2D0",
+        "pomp-and-purple":"#706993",
+        "dark-purple":"#331E38",
+        "moonstone":"#70A0AF"
       },
       spacing: {
         128: "36rem", // Change this value as needed
