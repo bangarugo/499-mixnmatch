@@ -22,8 +22,12 @@ export default {
         "dark-purple":"#331E38",
         "moonstone":"#70A0AF"
       },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'], 
+      },
       spacing: {
-        128: "36rem", // Change this value as needed
+        20: "4.5rem",
+        128: "36rem",
       },
       keyframes: {
         fadeUp: {

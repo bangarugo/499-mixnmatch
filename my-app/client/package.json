@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@tailwindcss/typography": "^0.5.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -12,6 +13,7 @@
     "express": "^4.21.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.1",
+    "framer-motion": "^11.11.17",
     "method-override": "^3.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
