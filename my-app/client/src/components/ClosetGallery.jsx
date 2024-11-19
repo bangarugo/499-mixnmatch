@@ -11,7 +11,7 @@ const ClosetGallery = () => {
       {squaresArray.map((index) => (
         <div
           key={index}
-          className={`js-card bg-blue-300 px-2 mt-2 p-4 xl:px-4 flex flex-col  items-center gap-y-2 snap-center rounded
+          className={`js-card bg-blue-200 px-2 mt-2 p-4 xl:px-4 flex flex-col items-center gap-y-2 snap-center rounded text-black
             first:
         `}
         >
