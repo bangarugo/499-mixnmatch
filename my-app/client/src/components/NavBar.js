@@ -33,8 +33,7 @@ const navLinkVariants = {
 const NavBar = () => {
   return (
     <motion.div
-      className="flex justify-between items-center py-2 px-4 xl:px-16 bg-medium-slate-blue shadow
-      fixed top-0 left-0 z-10 text-white w-full "
+      className="apply bg-black text-white py-8 px-10 flex justify-between items-center "
       variants={navBarVariants}
       initial="hidden"
       animate="show"
@@ -44,7 +43,7 @@ const NavBar = () => {
           className=" text-lg sm:text-4xl  font-bold "
           variants={navLinkVariants}
         >
-          Mix n' Match
+          MIX n' MATCH
         </motion.h1>
       </Link>
 
