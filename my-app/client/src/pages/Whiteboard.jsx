@@ -22,7 +22,7 @@ const Whiteboard = () => {
             className=" font-bold p-2"
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
           >
             Current Outfit
           </motion.h3>
@@ -43,7 +43,7 @@ const Whiteboard = () => {
             </button>
           </div>
           <div className="mix-button-container w-full flex justify-center ">
-            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-purple-500 to-blue-600 text-white rounded flex justify-center items-center   ">
+            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center   ">
               <span className="font-bold">Mix it up!</span>
             </button>
           </div>

@@ -46,7 +46,7 @@ const OutfitSidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="close"
-      className="js-saved-outfits-section border-2 border-eggplant flex flex-col space-y-3 p-2 w-1/4 rounded-l-lg
+      className="js-saved-outfits-section border-2 border-eggplant bg-neutral-200/50 flex flex-col space-y-3 p-2 w-1/4 rounded-l-lg
   "
     >
       <div className="closet-header flex justify-between items-center">

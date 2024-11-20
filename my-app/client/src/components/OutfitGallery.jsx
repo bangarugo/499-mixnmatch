@@ -1,6 +1,6 @@
 import React from "react";
 
-const SavedOutfits = () => {
+const OutfitGallery = () => {
   const num = 100;
   const squaresArray = Array.from({ length: num });
   return (
@@ -24,4 +24,4 @@ const SavedOutfits = () => {
   );
 };
 
-export default SavedOutfits;
+export default OutfitGallery;

@@ -53,7 +53,7 @@ const ClosetSidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="close"
-      className={`closet-section border-2 border-fairy-tale backdrop-blur flex flex-col space-y-3 p-2 rounded-r-lg 
+      className={`closet-section border-2 border-fairy-tale bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 p-2 rounded-r-lg 
       w-1/4
       xl:p-4 xl:w-1/5`}
     >
@@ -109,9 +109,9 @@ const ClosetSidebar = () => {
                   <PlusCircleIcon className=" w-5" />
                 </button>
               </div>
-              <div className="js-closet-option-container w-full h-full overflow-y-auto">
+              <motion.div className="js-closet-option-container w-full h-full overflow-y-auto">
                 <ClosetGallery />
-              </div>
+              </motion.div>
             </div>
           ))}
         </section>

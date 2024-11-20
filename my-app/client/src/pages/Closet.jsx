@@ -26,13 +26,17 @@ const Closet = () => {
     <div className="page-background min-h-screen bg-medium-slate-blue  ">
       <NavBar />
       <div className="bg-medium-slate-blue  h-screen w-screen pt-20 pl-2 pr-2 pb-2   overflow-hidden  ">
-        <main className="bg-blue-200 h-full w-full px-4 flex flex-col gap-y-2 text-center rounded drop-shadow-md">
+        <main className="bg-blue-200 h-full w-full px-4 flex flex-col gap-y-3 text-center rounded drop-shadow-md">
           <header className="font-bold pt-3 ">
             <h2 className="text-3xl ">Your Closet</h2>
           </header>
-          <div className="bg-red-400 flex flex-row justify-between items-center px-4 w-full h-40">
-            <div className="text-xl font-bold">Items</div>
-            <div className="text-xl font-bold">Outfits</div>
+          <div className="bg-red-400 flex  gap-x-3   w-full h-full">
+            <button className="text-xl font-bold w-1/2 py-5  bg-green-200 rounded flex items-center flex-1">
+              Items
+            </button>
+            <button className="text-xl font-bold w-1/2  py-5  bg-yellow-200 rounded flex  flex-1">
+              Outfits
+            </button>
           </div>
 
           <section
@@ -68,8 +72,7 @@ const Closet = () => {
 
               <div className="flex ">
                 <button
-                  className=" bg-electric-indigo h-12 w-48 rounded
-                 p-2 relative z-10 flex flex-row justify-center  gap-x-4 "
+                  className=" bg-electric-indigo flex justify-center items-center h-12 w-48 rounded relative z-10   gap-x-2 "
                   onClick={() => {
                     toggleFilterMenu();
                   }}
@@ -103,7 +106,7 @@ const Closet = () => {
               </div>
               <div className="sticky-bottom-div  sticky bottom-0 mt-4 py-2">
                 <button
-                  className=" add-item-button bg-green-300 h-12 w-36 text-lg font-bold rounded
+                  className=" add-item-button bg-green-500 h-12 w-36 text-lg font-bold rounded
                   transition ease-in-out delay-50
                   hover:-translate-y-1 hover:scale-110"
                   onClick={toggleModal}
