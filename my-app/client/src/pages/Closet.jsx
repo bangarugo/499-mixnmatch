@@ -25,7 +25,7 @@ const Closet = () => {
   return (
     <div className="page-background min-h-screen bg-medium-slate-blue  ">
       <NavBar />
-      <div className="bg-medium-slate-blue  h-screen w-screen pt-20 pl-2 pr-2 pb-2   overflow-hidden  ">
+      <div className="bg-medium-slate-blue  h-screen w-screen pt-4 pl-2 pr-2 pb-2   overflow-hidden  ">
         <main className="bg-blue-200 h-full w-full px-4 flex flex-col gap-y-3 text-center rounded drop-shadow-md">
           <header className="font-bold pt-3 ">
             <h2 className="text-3xl ">Your Closet</h2>

@@ -9,7 +9,7 @@ const Whiteboard = () => {
     <div className="page-background min-h-screen bg-medium-slate-blue text-white">
       <NavBar />
       <main
-        className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-20 mb-8 text-center space-x-2 h-screen w-screen 
+        className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-4 mb-8 text-center space-x-2 h-screen w-screen 
         xl:gap-x-1
       "
       >
@@ -20,13 +20,24 @@ const Whiteboard = () => {
         <div className="whiteboard-section  h-full flex flex-col  space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
           <motion.h3
             className=" font-bold p-2"
-            initial={{ opacity: 0, y: -100 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
             Current Outfit
           </motion.h3>
-          <div className="whiteboard-space bg-white h-4/5 w-full rounded-sm"></div>
+          <div className="whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 ">
+            <div
+              className="bg-red-500 w-full h-1/4"
+              id="headwear-container"
+            ></div>
+            <div
+              className="bg-yellow-500 w-full h-1/4"
+              id="tops-container"
+            ></div>
+            <div className="bg-blue-500 w-full h-1/4"></div>
+            <div className="bg-green-500 w-full h-1/4"></div>
+          </div>
           <div className="  flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2 ">
             <button className="bg-green-400 p-2 w-1/4 rounded text-lg ">
               Save

@@ -46,7 +46,8 @@ const OutfitSidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="close"
-      className="js-saved-outfits-section border-2 border-eggplant bg-neutral-200/50 flex flex-col space-y-3 p-2 w-1/4 rounded-l-lg
+      className="closet-section border-2 border-eggplant bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 py-2 px-6 rounded-l-lg w-1/4
+      xl:p-4 xl:w-1/5
   "
     >
       <div className="closet-header flex justify-between items-center">
@@ -76,9 +77,9 @@ const OutfitSidebar = () => {
         </Tooltip> */}
       </div>
       <SearchFits />
-      <div className="bg-yellow-500 overflow-y-auto">
+      <div className="overflow-y-auto">
         {/* are you sure you want to load in outfit? (current outfit is not saved, save?) */}
-        <ClosetGallery />
+        <OutfitGallery />
       </div>
     </motion.aside>
   );

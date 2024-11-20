@@ -9,13 +9,11 @@ const ClosetGallery = (draggable, category) => {
   const squaresArray = Array.from({ length: num });
 
   return (
-    <div className="js-card-container flex gap-x-4 gap-y-2 snap-y  snap-proximity  ">
-      {squaresArray.map((index) => (
+    <div className="js-card-container flex gap-x-4 gap-y-2  ">
+      {squaresArray.map((_, index) => (
         <motion.div
           key={index}
-          className={`js-card bg-blue-200 px-2 mt-2 p-4 xl:px-4 flex flex-col items-center gap-y-2 snap-center rounded text-black
-            
-        `}
+          className="js-card bg-blue-200 px-2 mt-2 p-4 xl:px-4 flex flex-col items-center gap-y-2  rounded text-black"
         >
           <img
             className="js-closet-item-img max-w-none rounded-lg   "
@@ -23,13 +21,10 @@ const ClosetGallery = (draggable, category) => {
             alt="description of item"
           />
           <h4 className="closet-item-name text-lg font-semibold text-center">
-            Test Closet Item 100
+            Test Closet Item {index + 1}
           </h4>
         </motion.div>
       ))}
-      <div className="snap-center">
-        <div className="w-4"></div>
-      </div>
     </div>
   );
 };
