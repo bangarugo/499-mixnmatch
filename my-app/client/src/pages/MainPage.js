@@ -2,7 +2,9 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import NavBar from "../components/NavBar";
+// import { useNavigate } from "react-router-dom";
 import '../styles/cards.css';
+import '../styles/cards-border.css';
 
 
 
@@ -12,6 +14,7 @@ const MainPage = () => {
   // const [isBottom, setIsBottom] = useState(false);
   // const navigate = useNavigate();
   const scrollRef = useRef(null);
+  const borderColors = ["border-green", "border-blue", "border-orange", "border-yellow"];
 
   // // Scroll handling for navigation between sections
   // const handleScroll = () => {
@@ -30,6 +33,29 @@ const MainPage = () => {
   //   window.addEventListener("scroll", handleScroll);
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
+
+  // useEffect(() => {
+  //   if (isBottom) {
+  //     navigate("/home");
+  //   }
+  // }, [isBottom, navigate]);
+
+  // const ParallaxText = () => {
+  //   useEffect(() => {
+  //     const handleScroll = () => {
+  //       const scrollY = window.scrollY;
+  //       const text = document.querySelector(".parallax-text");
+  //       text.style.transform = `translateY(${scrollY * 0.5}px)`;
+  //     };
+    
+
+  //       window.addEventListener("scroll", handleScroll);
+  //       return () => window.removeEventListener("scroll", handleScroll);
+  //     }, []);
+  //     // }, []);
+  // };
+
+  // ParallaxText();
 
 
 
@@ -81,19 +107,26 @@ const MainPage = () => {
           marginTop: "100vh", // Push the content below the fixed section
           zIndex: 10,
         }}
-        className="bg-gradient-to-r from-pink-400 to-purple-700 p-6" 
+        
+        className="text-center py-12 bg-black p-6"
+        // className="bg-gradient-to-r from-pink-400 to-purple-700 p-6" 
       >
-        <div className="text-center py-12">
-          <h1 className="text-4xl text-white font-bold">
-            Discover Our Features
+        <div 
+          // className="text-center py-12 bg-black p-6"
+          >
+          <h1 className="text-4xl text-white font-bold mb-8">
+            DISCOVER OUR FEATURES
           </h1>
-          <p className="text-lg text-white">
-            Explore the features of Mix 'N Match and get started on your style journey.
-          </p>
+          {/* <p className="text-lg text-white">
+            EXPLORE THE FEATURES OF MIX N' MATCH AND GET STARTED ON YOUR STYLING JOURNEY
+          </p> */}
         </div>
+        
 
         {/* Cards Section */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          
           {[
             {
               title: "Virtual Closet",
@@ -101,7 +134,7 @@ const MainPage = () => {
             },
             {
               title: "Design Outfits",
-              description: "Head over to the Outfits page to mix and match items on a virtual whiteboard. Arrange pieces, experiment with styles, and create unique looks.",
+              description: "Arrange pieces, experiment with styles, and create unique looks on our virtual whiteboard.",
             },
             {
               title: "Upload Pictures",
@@ -114,14 +147,16 @@ const MainPage = () => {
           ].map(({ title, description }, index  ) => (
             <motion.div
               key={index}
-              className="card border w-80 h-36 p-3 text-center flex flex-col space-y-2 bg-white/30 backdrop-blur-md shadow-lg rounded-md"
+              className={`card border-2 w-80 h-36 p-3 text-center flex flex-col space-y-2 bg-white/30 backdrop-blur-md shadow-lg rounded-md ${borderColors[index % borderColors.length]}`}
               initial={{ opacity: 0, y: 100 }} // Start off-screen and transparent
+              whileHover={{ scale: 1.05 }} // Scale the card on hover
+              whileTap={{ scale: 0.9 }} // Scale the card on tap
               whileInView={{ opacity: 1, y: 0 }} // Fade in and slide up when in view
               viewport={{ once: true }} // Trigger only once when it comes into view
-              transition={{ duration: 0.8, delay: index * 0.2 }} // Animation duration
+              transition={{ duration: 0.5 }} // Animation duration
             >
-              <h3 className="text-3xl font-bold">{title}</h3>
-              <p className="mt-2">{description}</p>
+              <h2 className="text-3xl font-bold text-white">{title}</h2>
+              <p className="mt-2 text-white">{description}</p>
             </motion.div>
           ))}
         </div>
