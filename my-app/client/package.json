@@ -10,7 +10,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
+    "chalk": "^5.3.0",
     "dotenv": "^16.4.5",
+    "es-abstract": "^1.23.5",
     "express": "^4.21.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.1",
@@ -23,8 +25,9 @@
     "react-dom": "^18.3.1",
     "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.26.2",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^3.0.1",
     "react-tooltip": "^5.28.0",
+    "tooltip": "^1.6.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -52,6 +55,10 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.14"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "react-scripts": "^5.0.1",
+    "tailwindcss": "^3.4.14",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   }
 }
