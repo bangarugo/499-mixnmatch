@@ -19,8 +19,12 @@ export default function WelcomePage(){
         const handleScroll = () => {
             const scrollY = window.scrollY;
             const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+            
+            // Debugging log
+            // console.log("ScrollY:", scrollY, "PageHeight:", pageHeight);
 
             if (scrollY >= pageHeight - 100) {
+                // console.log("Reached the bottom of the page"); // Debugging log
                 navigate('/home'); // Navigate to the home page when near the bottom
             }
         };

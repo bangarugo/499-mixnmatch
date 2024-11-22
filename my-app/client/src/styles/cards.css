@@ -1,3 +1,10 @@
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid transparent;
+  border-radius: 12px;
+}
+
 .botttom-cards {
   width: 100%;
   z-index: 10;
@@ -8,4 +15,21 @@
   position: fixed;
   bottom: 0;
   left: 0;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  /* background: linear-gradient(45deg, #fffb00, #7a00ff); */
+  z-index: -1;
+  border-radius: inherit;
+  filter: blur(10px);
+}
+
+.card .bg-transparent {
+  z-index: 1;
 }

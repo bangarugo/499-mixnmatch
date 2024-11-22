@@ -5,3 +5,7 @@
 body {
   @apply bg-medium-slate-blue;
 }
+
+html {
+  scroll-behavior: smooth;
+}

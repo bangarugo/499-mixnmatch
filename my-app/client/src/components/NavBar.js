@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, transform } from "framer-motion";
+import logo from '../images/mixnmatch-logo.png';
 
 const navBarVariants = {
   hidden: {
@@ -38,13 +39,23 @@ const NavBar = () => {
       initial="hidden"
       animate="show"
     >
-      <Link to="/">
+      {/* <Link to="/">
         <motion.h1
           className=" text-lg sm:text-4xl  font-bold "
           variants={navLinkVariants}
         >
           MIX n' MATCH
         </motion.h1>
+      </Link> */}
+
+      <Link to="/welcome">
+        <motion.img
+          src={logo}
+          alt="Mix n' Match logo"
+          // className="h-16 w-16 sm:h-16"
+          style={{ height: "100px", width: "auto" }}
+          variants={navLinkVariants}
+        />
       </Link>
 
       <motion.nav
