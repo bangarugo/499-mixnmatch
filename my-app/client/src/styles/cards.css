@@ -1,0 +1,11 @@
+.botttom-cards {
+  width: 100%;
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
+}
+
+.botttom-cards.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}

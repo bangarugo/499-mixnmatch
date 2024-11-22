@@ -41,7 +41,7 @@ const ClosetSidebar = () => {
     if (!isOpen) {
       containerControls.start("open");
     } else {
-      containerControls.start("close ");
+      containerControls.start("close");
     }
   }, [isOpen]);
 
