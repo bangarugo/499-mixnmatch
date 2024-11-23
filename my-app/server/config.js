@@ -23,7 +23,14 @@ connect
 const Loginschema = new mongoose.Schema({
     firstName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    images: [
+        {
+            url: String,
+            key: String,
+            uploadedAt: { type: Date, default: Date.now }
+        }
+    ]
 });
 
 // Create and export the model
