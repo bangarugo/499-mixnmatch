@@ -3,11 +3,12 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const { isValidObjectId } = require("mongoose"); // Ensure this is imported
 const passport = require("passport");
 const flash = require("connect-flash");
 const initializePassport = require("./passport-config");
 const path = require("path");
-
+const upload = require("./config/s3Config");
 // Import the config file, which connects to MongoDB
 const collection = require('./config');
 
@@ -27,11 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 // Passport setup
 initializePassport(passport);
 app.use(
-  session({
-      secret: "your_secret_key", // Replace with your own secret
-      resave: false,
-      saveUninitialized: false,
-  })
+    session({
+        secret: "your_secret_key", // Replace with your own secret
+        resave: false,
+        saveUninitialized: false,
+    })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -117,6 +118,69 @@ app.post('/logout', (req, res) => {
         }
         res.redirect('/login');
     });
+});
+
+// Upload image route
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+    const { userId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+        const user = await collection.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        user.images.push({
+            url: req.file.location,
+            key: req.file.key,
+        });
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Image uploaded successfully",
+            image: {
+                url: req.file.location,
+                key: req.file.key,
+            },
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET user information
+
+app.get("/userinfo", async (req, res) => {
+    try {
+        // Retrieve userId from query parameters
+        const { userId } = req.query;
+
+        if (!userId) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+
+        if (!isValidObjectId(userId)) {
+            return res.status(400).json({ error: "Invalid User ID format" });
+        }
+
+        // Fetch the user from the database
+        const user = await collection.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found against this ID" });
+        }
+
+        res.status(200).json({ user });
+    } catch (error) {
+        console.error("Error in /userinfo:", error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Start the server
