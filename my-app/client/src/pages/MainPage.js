@@ -111,16 +111,21 @@ const MainPage = () => {
         className="text-center py-12 bg-black p-6"
         // className="bg-gradient-to-r from-pink-400 to-purple-700 p-6" 
       >
-        <div 
+        <motion.div 
+          style={{ position: "sticky", top: "10px" }}
+          initial={{ opacity: 0, y: 50 }} 
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
           // className="text-center py-12 bg-black p-6"
           >
-          <h1 className="text-4xl text-white font-bold mb-8">
+          <h1 className="text-4xl text-black bg-gradient-to-r from-pink-500 to-yellow-500 font-bold mb-8">
             DISCOVER OUR FEATURES
           </h1>
           {/* <p className="text-lg text-white">
             EXPLORE THE FEATURES OF MIX N' MATCH AND GET STARTED ON YOUR STYLING JOURNEY
           </p> */}
-        </div>
+        </motion.div>
         
 
         {/* Cards Section */}
@@ -149,7 +154,7 @@ const MainPage = () => {
               key={index}
               className={`card border-2 w-80 h-36 p-3 text-center flex flex-col space-y-2 bg-white/30 backdrop-blur-md shadow-lg rounded-md ${borderColors[index % borderColors.length]}`}
               initial={{ opacity: 0, y: 100 }} // Start off-screen and transparent
-              whileHover={{ scale: 1.05 }} // Scale the card on hover
+              whileHover={{ scale: 1.08 }} // Scale the card on hover
               whileTap={{ scale: 0.9 }} // Scale the card on tap
               whileInView={{ opacity: 1, y: 0 }} // Fade in and slide up when in view
               viewport={{ once: true }} // Trigger only once when it comes into view
