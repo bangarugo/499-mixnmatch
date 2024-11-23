@@ -34,7 +34,7 @@ const Login = () => {
             const data = await response.json(); // Parse the JSON response
     
             if (response.ok) {
-                console.log(data); // Handle the response from your backend
+                localStorage.setItem("user", JSON.stringify(data?.user))
                 navigate("/"); // Redirect to dashboard on successful login
             } else {
                 // If response is not okay, set the error message from the backend
