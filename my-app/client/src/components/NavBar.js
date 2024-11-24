@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, transform } from "framer-motion";
-import logo from '../images/mixnmatch-logo.png';
+import logo from "../images/mixnmatch-logo.png";
 
 const navBarVariants = {
   hidden: {
@@ -63,6 +63,13 @@ const NavBar = () => {
         variants={navBarVariants}
       >
         <motion.div variants={navLinkVariants}>
+          <Link to="/outfits">
+            <h2 className="border-2 border-orange-300 rounded py-1 px-4 ">
+              Home
+            </h2>
+          </Link>
+        </motion.div>
+        <motion.div variants={navLinkVariants}>
           <Link to="/whiteboard">
             <h2 className=" border-2 border-green-300 rounded py-1 px-4">
               Whiteboard
@@ -74,14 +81,6 @@ const NavBar = () => {
           <Link to="/closet">
             <h2 className="border-2 border-blue-300 rounded py-1 px-4 ">
               Closet
-            </h2>
-          </Link>
-        </motion.div>
-
-        <motion.div variants={navLinkVariants}>
-          <Link to="/outfits">
-            <h2 className="border-2 border-orange-300 rounded py-1 px-4 ">
-              Outfits
             </h2>
           </Link>
         </motion.div>

@@ -53,7 +53,7 @@ const ClosetSidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="close"
-      className="closet-section border-2 border-fairy-tale bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 p-2 rounded-r-lg w-1/4
+      className="closet-section border-2 border-black bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 p-2 rounded-r-lg w-1/4
       xl:p-4 xl:w-1/5"
     >
       <div className="closet-header flex justify-between items-center">

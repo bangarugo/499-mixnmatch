@@ -31,11 +31,11 @@ const Closet = () => {
             <h2 className="text-3xl ">Your Closet</h2>
           </header>
           <div className="bg-red-400 flex  gap-x-3   w-full h-full">
-            <button className="text-xl font-bold w-1/2 py-5  bg-green-200 rounded flex items-center flex-1">
-              Items
+            <button className="text-xl font-bold w-1/2 py-5  bg-blue-600 rounded flex items-center flex-1">
+              Uploaded Items
             </button>
-            <button className="text-xl font-bold w-1/2  py-5  bg-yellow-200 rounded flex  flex-1">
-              Outfits
+            <button className="text-xl font-bold w-1/2  py-5  bg-yellow-600 rounded flex  flex-1">
+              Saved Outfits
             </button>
           </div>
 
@@ -69,7 +69,13 @@ const Closet = () => {
                 className="search-bar p-2 text-black rounded xl:w-1/3 
                 focus:outline-none focus:ring focus:ring-medium-slate-blue"
               />
-
+              <button
+                className="bg-yellow-500  h-12 w-36 rounded 
+            "
+              >
+                Favorites
+              </button>
+              {/* 
               <div className="flex ">
                 <button
                   className=" bg-electric-indigo flex justify-center items-center h-12 w-48 rounded relative z-10   gap-x-2 "
@@ -88,14 +94,8 @@ const Closet = () => {
 
               <button className="bg-electric-indigo h-12 w-48 rounded ">
                 Sort by
-              </button>
+              </button> */}
             </div>
-            <button
-              className="bg-yellow-500  h-12 w-36 rounded 
-            "
-            >
-              Favorites
-            </button>
           </div>
           <section className="closet-items-container bg-neutral-200 drop-shadow-lg rounded h-3/4 px-4">
             <div className=" inner-closet-container flex flex-col w-full h-full gap-y-1  ">

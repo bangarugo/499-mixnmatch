@@ -1,5 +1,5 @@
 import React from "react";
-
+import { motion } from "framer-motion";
 // This is the modal that appears when a user wants to add a new item to their closet
 // here a user can upload clothing item pictures
 // conditonally render the upload modal if the user clicks the "Add Item button"
