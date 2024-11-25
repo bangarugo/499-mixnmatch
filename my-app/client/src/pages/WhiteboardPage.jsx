@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import ClosetSidebar from "../components/ClosetSidebar";
 import OutfitSidebar from "../components/OutfitSidebar";
+import WhiteboardSpace from "../components/WhiteboardSpace";
 import { motion } from "framer-motion";
+import { DndContext, closestCorners } from "@dnd-kit/core";
 
-const Whiteboard = () => {
+const categories = ["headwear", "tops", "bottoms", "footwear"];
+
+const WhiteboardPage = () => {
   return (
     <div className="page-background min-h-screen bg-medium-slate-blue text-white">
       <NavBar />
@@ -15,29 +19,20 @@ const Whiteboard = () => {
       >
         {/* This is where the users closet items will be displayed. */}
         <ClosetSidebar />
-        {/* This is where the users current outfit will be displayed as will as the option to 
-        display a second outfit to compare with. */}
-        <div className="whiteboard-section  h-full flex flex-col  space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
+
+        <div className="js-center-section  h-full flex flex-col  space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
           <motion.h3
             className=" font-bold p-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Current Outfit
+            <h2 className="underline underline-offset-4">Current Outfit</h2>
           </motion.h3>
-          <div className="js-whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 border-2 border-black">
-            <div
-              className="bg-red-500 w-full h-1/4"
-              id="headwear-container"
-            ></div>
-            <div
-              className="bg-yellow-500 w-full h-1/4"
-              id="tops-container"
-            ></div>
-            <div className="bg-blue-500 w-full h-1/4"></div>
-            <div className="bg-green-500 w-full h-1/4"></div>
-          </div>
+          {/* whiteboard droppable zone */}
+          <DndContext collisionDetection={closestCorners}>
+            <WhiteboardSpace />
+          </DndContext>
           <div className="  flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2 ">
             <button className="bg-green-400 p-2 w-1/4 rounded text-lg border border-black ">
               Save
@@ -45,10 +40,9 @@ const Whiteboard = () => {
             <button className="bg-red-400 p-2 w-1/4 rounded text-lg border border-black">
               Clear
             </button>
-            <button className="bg-blue-400 px-1 py-2 w-1/4 rounded text-lg border border-black">
+            {/* <button className="bg-blue-400 px-1 py-2 w-1/4 rounded text-lg border border-black">
               Compare
-            </button>{" "}
-            {/* compare maximizes the saved outfits */}
+            </button> */}
             <button className="bg-yellow-400 p-2 w-1/4 rounded text-lg border border-black">
               Favorite
             </button>
@@ -66,7 +60,4 @@ const Whiteboard = () => {
   );
 };
 
-/* when a closet item piece if held and the closet section has been extended, lower its opacity and make the whiteboard section bigger */
-/* allow the closet section and outfit section to be minimized, have a default size and extended size */
-
-export default Whiteboard;
+export default WhiteboardPage;
