@@ -2,9 +2,21 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import SquareGrid from "../components/SquareGridY";
 import UploadModal from "../components/UploadModal";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
-const Closet = () => {
-  const [currentFilter, setFilter] = useState("All");
+const ClosetPage = () => {
+  const [currentCategory, setCategory] = useState("All");
+  const categories = ["All", "Headwear", "Tops", "Bottoms", "Footwear"];
+  const handleCategory = (category) => {
+    setCategory(category);
+  };
+
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const toggleFilterMenu = () => {
+    setShowFilterMenu(!showFilterMenu);
+  };
+
   const [isModalOpen, setModalOpen] = useState(false);
   const filterOptions = ["All", "Headwear", "Tops", "Bottoms", "Footwear"];
 
@@ -58,7 +70,7 @@ const getClosetImages = async () => {
       <NavBar />
       <div className="bg-medium-slate-blue  h-screen w-screen pt-4 pl-2 pr-2 pb-2 overflow-hidde   ">
         <main className="bg-blue-200 h-full w-full px-4 flex flex-col gap-y-4 text-center rounded drop-shadow-md border-2 border-black">
-          <header className="font-bold pt-4 ">
+          <header className="font-bold py-4 border-b border-black ">
             <h2 className="text-3xl text-black ">Your Closet</h2>
           </header>
 
@@ -81,7 +93,7 @@ const getClosetImages = async () => {
               </button>
             ))}
           </section>
-          <div className="filter-section relative flex flex-row items-center justify-between px-2 py-4 h-12 w-full bg-red-300 ">
+          <div className="js-favorite-section relative flex flex-row items-center justify-between px-2 py-4 h-12 w-full ">
             <div className="gap-x-4 flex justify-start  text-center  w-3/5  ">
               <input
                 type="text"
@@ -92,30 +104,26 @@ const getClosetImages = async () => {
               />
               <button
                 className="bg-yellow-500 text-lg px-4  h-12 w-36 rounded border border-black font-bold
-            "
+              "
               >
                 Favorites
               </button>
-              <div className="">
-                <button
-                  className=" add-item-button bg-green-500 h-12 w-36 text-lg font-bold rounded border border-black
-                  transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"
-                  onClick={toggleModal}
-                >
-                  Add item
-                </button>
-                {/* pass props to UploadModal component(dictates whether modal is visible) */}
-                <UploadModal isOpen={isModalOpen} toggleModal={toggleModal} setImageUploaded={setImageUploaded} />
-              </div>
-              <div>
-                <button
-                  className="bg-moonstone px-4 h-12 w-36 text-lg font-bold rounded drop-shadow-md border border-black
-              transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"
-                >
-                  View Outfits
-                </button>
-              </div>
+              <button
+                className="bg-moonstone px-4 h-12 w-36 text-lg font-bold rounded drop-shadow-md border border-black
+                    transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"
+              >
+                View Outfits
+              </button>
             </div>
+
+            <button
+              className=" add-item-button bg-green-500 h-12 w-36 text-lg font-bold rounded border border-black
+                  transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"
+              onClick={toggleModal}
+            >
+              Add item
+            </button>
+            <UploadModal isOpen={isModalOpen} toggleModal={toggleModal} />
           </div>
           <section className="closet-items-container bg-neutral-200 drop-shadow-lg rounded h-3/4 px-4 border border-black">
             <div className=" inner-closet-container flex flex-col w-full h-full gap-y-1   ">
@@ -145,4 +153,4 @@ flex items-center justify-center text-xl font-bold
 </div>
 <div className="bottom-sticky-div  sticky bottom-0 -mx-1 h-12 bg-stone-400 z-10"></div> */
 
-export default Closet;
+export default ClosetPage;
