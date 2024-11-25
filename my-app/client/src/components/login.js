@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // prevent the form from refreshing the page
+    e.preventDefault(); // Prevent the form from refreshing the page
 
     try {
       const response = await fetch("http://localhost:8080/login", {
@@ -34,14 +34,14 @@ const Login = () => {
       const data = await response.json(); // Parse the JSON response
 
       if (response.ok) {
-        console.log(data); 
-        navigate("/profile"); // Redirect to profile page on successful login
+        localStorage.setItem("user", JSON.stringify(data?.user));
+        navigate("/"); // Redirect to dashboard on successful login
       } else {
-        // if response is not okay, set the error message from the backend
+        // If response is not okay, set the error message from the backend
         setError(data.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
-      setError("An error occurred. Please try again later."); 
+      setError("An error occurred. Please try again later."); // Handle network/server errors
     }
   };
 
