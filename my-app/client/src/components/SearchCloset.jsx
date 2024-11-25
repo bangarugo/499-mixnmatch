@@ -17,12 +17,12 @@ const SearchCloset = () => {
   return (
     <div className="flex flex-col  relative gap-y-2">
       <input
-        className="bg-white text-black text-center p-2 ring-1 hover:ring-red-300 outline-none"
+        className="bg-white text-black text-center p-2 border border-black ring-1 hover:ring-red-300 outline-none"
         id="search-bar"
         type="text"
         placeholder="Search by name"
       ></input>
-
+{/* 
       <button
         onClick={toggleFilterMenu}
         className="bg-electric-indigo p-2 relative z-10 flex flex-row justify-center items-center  gap-x-4 "
@@ -58,7 +58,7 @@ const SearchCloset = () => {
             </button>
           ))}
         </motion.div>
-      )}
+      )} */}
     </div>
   );
 };

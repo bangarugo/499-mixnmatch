@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import ClosetSidebar from "../components/ClosetSidebar";
 import OutfitSidebar from "../components/OutfitSidebar";
@@ -26,7 +26,7 @@ const Whiteboard = () => {
           >
             Current Outfit
           </motion.h3>
-          <div className="whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 ">
+          <div className="js-whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 border-2 border-black">
             <div
               className="bg-red-500 w-full h-1/4"
               id="headwear-container"
@@ -39,22 +39,22 @@ const Whiteboard = () => {
             <div className="bg-green-500 w-full h-1/4"></div>
           </div>
           <div className="  flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2 ">
-            <button className="bg-green-400 p-2 w-1/4 rounded text-lg ">
+            <button className="bg-green-400 p-2 w-1/4 rounded text-lg border border-black ">
               Save
             </button>
-            <button className="bg-red-400 p-2 w-1/4 rounded text-lg">
+            <button className="bg-red-400 p-2 w-1/4 rounded text-lg border border-black">
               Clear
             </button>
-            <button className="bg-blue-400 px-1 py-2 w-1/4 rounded text-lg">
+            <button className="bg-blue-400 px-1 py-2 w-1/4 rounded text-lg border border-black">
               Compare
             </button>{" "}
             {/* compare maximizes the saved outfits */}
-            <button className="bg-yellow-400 p-2 w-1/4 rounded text-lg">
+            <button className="bg-yellow-400 p-2 w-1/4 rounded text-lg border border-black">
               Favorite
             </button>
           </div>
           <div className="mix-button-container w-full flex justify-center ">
-            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center   ">
+            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center border border-black  ">
               <span className="font-bold">Mix it up!</span>
             </button>
           </div>
