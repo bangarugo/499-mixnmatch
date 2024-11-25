@@ -1,5 +1,5 @@
 import React from "react";
-import SearchFits from "./SearchFits";
+import SearchFits from "./SearchCloset";
 import ClosetGallery from "./ClosetGallery";
 import {
   PlusCircleIcon,

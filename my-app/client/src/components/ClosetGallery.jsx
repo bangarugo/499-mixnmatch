@@ -45,13 +45,10 @@ const getClosetImages=async()=>{
             alt="description of item"
           />
           <h4 className="closet-item-name text-lg font-semibold text-center">
-            Test Closet Item 100
+            Test Closet Item {index + 1}
           </h4>
         </div>
       ))}
-      <div className="snap-center">
-        <div className="w-4"></div>
-      </div>
     </div>
   );
 };
