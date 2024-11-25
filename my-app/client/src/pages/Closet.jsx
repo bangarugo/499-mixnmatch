@@ -104,7 +104,7 @@ const getClosetImages = async () => {
               </button>
               <button className="bg-electric-indigo h-12 w-24 rounded ">
                 Sort by
-              </button> */}
+              </button> 
             </div>
             <button
               className="bg-yellow-500  h-12 w-24 rounded 
