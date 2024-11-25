@@ -46,16 +46,12 @@ const OutfitSidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="close"
-      className="closet-section border-2 border-eggplant bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 py-2 px-6 rounded-l-lg w-1/4
+      className="closet-section  bg-neutral-200/50 backdrop-blur flex flex-col space-y-3 py-2 px-6 rounded-l-lg w-1/4 border-2 border-black
       xl:p-4 xl:w-1/5
   "
     >
       <div className="closet-header flex justify-between items-center">
-        {/* <button className=" size-6 ">
-          <a className="max-outfit-tab">
-            <ChevronDoubleLeftIcon className="text-black" />
-          </a>
-        </button> */}
+
         <motion.h3
           className=" text-2xl underline font-bold p-1 w-full underline-offset-4 "
           initial={{ opacity: 0, y: 100 }}
@@ -64,17 +60,7 @@ const OutfitSidebar = () => {
         >
           Saved Outfits
         </motion.h3>
-        {/* <button className="size-6">
-          <a className="fold-outfit-tab">
-            <ChevronRightIcon className="text-black" />
-          </a>
-        </button>
-        <Tooltip anchorSelect=".fold-outfit-tab" place="left">
-          Collapse
-        </Tooltip>
-        <Tooltip anchorSelect=".max-outfit-tab" place="left">
-          Maximize
-        </Tooltip> */}
+
       </div>
       <SearchFits />
       <div className="overflow-y-auto">

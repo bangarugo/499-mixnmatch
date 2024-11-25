@@ -14,21 +14,20 @@ const NavBar = () => {
         className="js-nav-links
         text-2xl flex items-center gap-x-5"
       >
-        <Link to="/whiteboard">
-          <h2 className=" border-2 border-green-300 rounded py-1 px-4 ">
-            Whiteboard
-          </h2>
-        </Link>
-        <Link to="/closet">
-          <h2 className="border-2 border-blue-300 rounded py-1 px-4 ">
-            Closet
-          </h2>
-        </Link>
-        <Link to="/outfits">
-          <h2 className="border-2 border-orange-300 rounded py-1 px-4 ">
-            Outfits
-          </h2>
-        </Link>
+        <motion.div variants={navLinkVariants}>
+          <Link to="/home">
+            <h2 className="border-2 border-orange-300 rounded py-1 px-4 ">
+              Home
+            </h2>
+          </Link>
+        </motion.div>
+        <motion.div variants={navLinkVariants}>
+          <Link to="/whiteboard">
+            <h2 className=" border-2 border-green-300 rounded py-1 px-4">
+              Whiteboard
+            </h2>
+          </Link>
+        </motion.div>
 
         <Link to="/profile">
           <h2 className="border-2 border-yellow-300 rounded py-1 px-4 ">
