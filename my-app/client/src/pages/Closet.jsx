@@ -21,6 +21,8 @@ useEffect(()=>{
 
 }, [imageUploaded])
 
+console.log(imageUploaded, "IU")
+
 
 const userId=user?._id
 

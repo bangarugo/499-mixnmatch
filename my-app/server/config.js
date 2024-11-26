@@ -1,4 +1,4 @@
-require('dotenv').config();  // Load environment variables from .env
+require("dotenv").config(); // Load environment variables from .env
 
 const mongoose = require("mongoose");
 
@@ -7,30 +7,31 @@ console.log("MONGO_URI:", process.env.MONGO_URI);
 
 // Connect to MongoDB
 const connect = mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 connect
   .then(() => {
-      console.log("Database Connected Successfully");
+    console.log("Database Connected Successfully");
   })
   .catch((err) => {
-      console.error("Database connection error:", err);
+    console.error("Database connection error:", err);
   });
 
 // Define the schema
 const Loginschema = new mongoose.Schema({
-    firstName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    images: [
-        {
-            url: String,
-            key: String,
-            uploadedAt: { type: Date, default: Date.now }
-        }
-    ]
+  firstName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  images: [
+    {
+      url: String,
+      key: String,
+      caption: String,
+      uploadedAt: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 // Create and export the model

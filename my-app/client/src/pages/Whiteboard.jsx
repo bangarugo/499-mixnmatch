@@ -3,8 +3,27 @@ import NavBar from "../components/NavBar";
 import ClosetSidebar from "../components/ClosetSidebar";
 import OutfitSidebar from "../components/OutfitSidebar";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Whiteboard = () => {
+
+  const [outfit, setOutfit] = useState("");
+
+    const handleMixAndMatch = async () => {
+        try {
+            const response = await fetch.post("http://localhost:8080/mix-and-match", {
+                userId: "USER_ID", // Replace with actual logged-in user ID
+            });
+
+            console.log(response, "RES")
+
+            setOutfit(response.data.outfit || "No outfit generated.");
+        } catch (error) {
+            console.error("Error generating outfit:", error);
+            setOutfit("Error generating outfit.");
+        }
+    };
+
   return (
     <div className="page-background min-h-screen bg-medium-slate-blue text-white">
       <NavBar />
@@ -54,7 +73,9 @@ const Whiteboard = () => {
             </button>
           </div>
           <div className="mix-button-container w-full flex justify-center ">
-            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center   ">
+            <button className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center"
+            onClick={handleMixAndMatch}
+            >
               <span className="font-bold">Mix it up!</span>
             </button>
           </div>
