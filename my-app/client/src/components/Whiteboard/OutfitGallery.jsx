@@ -24,4 +24,4 @@ const OutfitGallery = () => {
   );
 };
 
-export default SavedOutfits;
+export default OutfitGallery;

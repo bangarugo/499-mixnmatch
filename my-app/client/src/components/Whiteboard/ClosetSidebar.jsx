@@ -42,7 +42,7 @@ const ClosetSidebar = () => {
   };
   return (
     <aside
-      className="closet-section bg-medium-slate-blue flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg  
+      className="closet-section bg-neutral-200/50 flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg border-2 border-black 
       xl:p-4 xl:w-1/5"
     >
       <div className="closet-header flex justify-between items-center">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
+import { XCircleIcon } from "@heroicons/react/24/solid";
+const UploadModal = ({ isOpen, toggleModal, userId, setImageUploaded }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -33,7 +33,6 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
     formData.append("userId", user?._id); // Add userId
     formData.append("image", selectedImage); // Add the image file
 
-
     try {
       const response = await fetch("http://localhost:8080/upload-image", {
         method: "POST",
@@ -41,8 +40,8 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
       });
 
       if (response.ok) {
-        setImageUploaded(true)
-       
+        setImageUploaded(true);
+
         // alert("Image uploaded successfully!");
       } else {
         alert("Failed to upload image.");
@@ -51,14 +50,14 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
       console.error("Error uploading image:", error);
       alert("An error occurred.");
     }
-    setSelectedImage(null)
+    setSelectedImage(null);
     toggleModal(); // Close the modal
   };
 
-  const handleDiscard=()=>{
-    setSelectedImage(null)
-    toggleModal()
-  }
+  const handleDiscard = () => {
+    setSelectedImage(null);
+    toggleModal();
+  };
 
   return (
     <>
@@ -71,10 +70,7 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
             className="flex flex-col justify-between items-center space-y-6 relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-6 rounded shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              className="js-close-button  "
-              onClick={toggleModal}
-            >
+            <button className="js-close-button  " onClick={toggleModal}>
               <XCircleIcon />
             </button>
 
@@ -100,9 +96,9 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
                 className="text-sm"
               />
 
-{errorMessage && (
-        <p className="text-red-500 text-sm">{errorMessage}</p>
-      )}
+              {errorMessage && (
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
             </div>
 
             <div className="save-options flex flex-row space-x-5 h-1/6 w-3/5 justify-evenly items-center">

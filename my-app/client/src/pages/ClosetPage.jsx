@@ -20,47 +20,41 @@ const ClosetPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const filterOptions = ["All", "Headwear", "Tops", "Bottoms", "Footwear"];
 
-  const [closetImages, setClosetImages]=useState([])
-  const [imageUploaded, setImageUploaded]= useState(false)
+  const [closetImages, setClosetImages] = useState([]);
+  const [imageUploaded, setImageUploaded] = useState(false);
   // const num = 30;
   // const squaresArray = Array.from({ length: num });
 
+  const user = JSON.parse(localStorage.getItem("user"));
 
-const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    getClosetImages();
+  }, [imageUploaded]);
 
-useEffect(()=>{
-  getClosetImages()
+  const userId = user?._id;
 
-}, [imageUploaded])
+  const getClosetImages = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/userinfo?userId=${userId}`,
+        {
+          method: "GET",
+        }
+      );
 
+      if (!response.ok) {
+        console.error("Failed to fetch closet images:", response.statusText);
+        return;
+      }
 
-const userId=user?._id
-
-
-const getClosetImages = async () => {
-  try {
-    const response = await fetch(`http://localhost:8080/userinfo?userId=${userId}`, {
-      method: "GET",
-    });
-
-    if (!response.ok) {
-      console.error("Failed to fetch closet images:", response.statusText);
-      return;
+      const data = await response.json(); // Parse the JSON response
+      // Assuming images are located inside `data.user.images`
+      setClosetImages(data.user.images);
+    } catch (error) {
+      console.error("Error fetching closet images:", error);
     }
-
-    const data = await response.json(); // Parse the JSON response
-    // Assuming images are located inside `data.user.images`
-    setClosetImages(data.user.images);
-  } catch (error) {
-    console.error("Error fetching closet images:", error);
-  }
-};
-
-
-
-  const handleFilter = (filter) => {
-    setFilter(filter);
   };
+
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
@@ -89,7 +83,7 @@ const getClosetImages = async () => {
                       : "bg-electric-indigo text-white "
                   } transition-colors duration-300`}
               >
-                {filterOption}
+                {category}
               </button>
             ))}
           </section>
