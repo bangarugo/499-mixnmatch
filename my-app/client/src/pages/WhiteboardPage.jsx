@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import NavBar from "../components/NavBar";
-import ClosetSidebar from "../components/ClosetSidebar";
-import OutfitSidebar from "../components/OutfitSidebar";
-import WhiteboardSpace from "../components/WhiteboardSpace";
+import ClosetSidebar from "../components/Whiteboard/ClosetSidebar";
+import OutfitSidebar from "../components/Whiteboard/OutfitSidebar";
+import WhiteboardSpace from "../components/Whiteboard/WhiteboardSpace";
 import { motion } from "framer-motion";
-import { DndContext, closestCorners } from "@dnd-kit/core";
 
 const categories = ["headwear", "tops", "bottoms", "footwear"];
 
@@ -29,10 +28,10 @@ const WhiteboardPage = () => {
           >
             <h2 className="underline underline-offset-4">Current Outfit</h2>
           </motion.h3>
-          {/* whiteboard droppable zone */}
-          <DndContext collisionDetection={closestCorners}>
-            <WhiteboardSpace />
-          </DndContext>
+          {/* whiteboard space where item cards can be placed*/}
+
+          <WhiteboardSpace />
+
           <div className="  flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2 ">
             <button className="bg-green-400 p-2 w-1/4 rounded text-lg border border-black ">
               Save

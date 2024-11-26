@@ -60,6 +60,15 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
     toggleModal()
   }
 
+import React from "react";
+import { motion } from "framer-motion";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+
+// This is the modal that appears when a user wants to add a new item to their closet
+// here a user can upload clothing item pictures
+// conditonally render the upload modal if the user clicks the "Add Item button"
+
+const UploadModal = ({ isOpen, toggleModal }) => {
   return (
     <>
       {isOpen && (
@@ -72,10 +81,10 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="close-button absolute top-2 right-4 text-2xl font-bold"
+              className="js-close-button  "
               onClick={toggleModal}
             >
-              &times;
+              <XCircleIcon />
             </button>
 
             <h2 className="upload-header text-xl font-bold text-black ">
@@ -105,6 +114,7 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
       )}
             </div>
 
+            <button className="js-upload-box bg-white h-1/2 w-3/4 xl:w-3/5 "></button>
             <div className="save-options flex flex-row space-x-5 h-1/6 w-3/5 justify-evenly items-center">
               <button
                 className="bg-green-600 h-12 w-24 rounded"

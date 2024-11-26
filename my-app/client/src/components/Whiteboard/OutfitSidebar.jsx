@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchFits from "./SearchCloset";
-import ClosetGallery from "../components/ClosetGallery";
+import ClosetGallery from "./ClosetGallery";
 import {
   ChevronDoubleLeftIcon,
   ChevronRightIcon,
@@ -51,7 +51,6 @@ const OutfitSidebar = () => {
   "
     >
       <div className="closet-header flex justify-between items-center">
-
         <motion.h3
           className=" text-2xl font-bold p-1 w-full underline-offset-4 "
           initial={{ opacity: 0, y: 100 }}
@@ -60,7 +59,6 @@ const OutfitSidebar = () => {
         >
           Saved Outfits
         </motion.h3>
-
       </div>
       <SearchFits />
       <div className="overflow-y-auto">
