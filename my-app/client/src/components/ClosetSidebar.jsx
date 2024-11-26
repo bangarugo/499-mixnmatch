@@ -3,7 +3,7 @@ import SearchFits from "./SearchCloset";
 import ClosetGallery from "./ClosetGallery";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { motion, useAnimationControls } from "framer-motion";
-
+import closetItems from "./test-data/closetItems.js"; // array for testing drag and drop 
 const containerVariants = {
   close: {
     width: "0",
@@ -25,7 +25,22 @@ const containerVariants = {
   },
 };
 const ClosetSidebar = () => {
-  const closetPieceOptions = ["Headwear", "Tops", "Bottoms", "Footwear"];
+  const categories = ["Headwear", "Tops", "Bottoms", "Footwear"];
+
+  const [isOpen, setIsOpen] = useState(false);
+  const containerControls = useAnimationControls();
+
+  useEffect(() => {
+    if (!isOpen) {
+      containerControls.start("open");
+    } else {
+      containerControls.start("close");
+    }
+  }, [isOpen]);
+
+  const handleOpenClose = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <aside
       className="closet-section bg-medium-slate-blue flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg  
@@ -33,7 +48,7 @@ const ClosetSidebar = () => {
     >
       <div className="closet-header flex justify-between items-center">
         <motion.h3
-          className={`text-2xl font-bold p-1 w-full underline underline-offset-4`}
+          className="text-2xl font-bold p-1 w-full "
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -45,22 +60,22 @@ const ClosetSidebar = () => {
       <SearchFits />
       <div className="overflow-y-scroll">
         <section className="js-closet-items-section  flex flex-col space-y-2 ">
-          {closetPieceOptions.map((closetPiece) => (
+          {categories.map((category,index) => (
             <div
-              key={closetPiece}
-              className=" flex flex-col items-center justify-evenly"
+              key={index}
+              className={`${category}-section flex flex-col items-center justify-evenly`}
             >
               <div className="bg-magnolia text-raisin-black w-full py-2 sticky top-0 flex items-center border border-black ">
                 <div className="flex-1 min-w-0 ">
-                  <h3 className=" font-light text-xl ">{closetPiece}</h3>
+                  <h3 className=" font-light text-xl ">{category}</h3>
                 </div>
-                <button className="size-6 absolute right-0">
+                {/* <button className="size-6 absolute right-0">
                   <PlusCircleIcon className=" w-5" />
-                </button>
+                </button> */}
               </div>
-              <div className="js-closet-option-container w-full h-full overflow-y-auto">
-                <ClosetGallery />
-              </div>
+              <motion.div className="js-closet-item-category-container w-full h-full overflow-y-auto">
+                <ClosetGallery category={category} />
+              </motion.div>
             </div>
           ))}
         </section>
