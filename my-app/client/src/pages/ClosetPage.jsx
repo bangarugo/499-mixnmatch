@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import SquareGrid from "../components/SquareGridY";
-import UploadModal from "../components/UploadModal";
+import SquareGrid from "../components/Closet/SquareGridY";
+import UploadModal from "../components/Closet/UploadModal";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 

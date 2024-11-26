@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import shirt from "../images/shirtnshorts.png";
+import closetItems from "../test-data/closetItems"; // array of objects for testing purposes
+// this component is meant to retrieve and display a users uploaded closet images
 
 // this component is meant to retrieve and display a users uploaded closet images
 const ClosetGallery = () => {
@@ -29,8 +30,8 @@ const getClosetImages=async()=>{
 }
 
 
-import closetItems from "./test-data/closetItems"; // array of objects for testing purposes
-// this component is meant to retrieve and display a users uploaded closet images
+
+
 
 const ClosetGallery = ({ category }) => {
   const filteredItems = closetItems.filter((item) => {

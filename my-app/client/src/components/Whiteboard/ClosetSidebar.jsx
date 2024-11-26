@@ -1,9 +1,8 @@
-import React from "react";
-import SearchFits from "./SearchCloset";
-import ClosetGallery from "./ClosetGallery";
+import React, { useEffect, useState } from "react";
+import SearchFits from "./SearchCloset.jsx";
+import ClosetGallery from "./ClosetGallery.jsx";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { motion, useAnimationControls } from "framer-motion";
-import closetItems from "./test-data/closetItems.js"; // array for testing drag and drop 
 const containerVariants = {
   close: {
     width: "0",
@@ -60,7 +59,7 @@ const ClosetSidebar = () => {
       <SearchFits />
       <div className="overflow-y-scroll">
         <section className="js-closet-items-section  flex flex-col space-y-2 ">
-          {categories.map((category,index) => (
+          {categories.map((category, index) => (
             <div
               key={index}
               className={`${category}-section flex flex-col items-center justify-evenly`}

@@ -72,10 +72,10 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="close-button absolute top-2 right-4 text-2xl font-bold"
+              className="js-close-button  "
               onClick={toggleModal}
             >
-              &times;
+              <XCircleIcon />
             </button>
 
             <h2 className="upload-header text-xl font-bold text-black ">
