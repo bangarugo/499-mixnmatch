@@ -6,7 +6,7 @@ import Register from "./components/register"; // Importing Register component
 import MainPage from "./pages/MainPage";
 import Welcome from "./components/welcome";
 import Profile from "./components/profile"; //Importing Profile Page
-import Closet from "./pages/ClosetPage";
+import ClosetPage from "./pages/ClosetPage";
 import Whiteboard from "./pages/WhiteboardPage";
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/closet" element={<Closet />} />
+        <Route path="/closet" element={<ClosetPage />} />
         <Route path="/whiteboard" element={<Whiteboard />} />
       </Routes>
     </Router>
