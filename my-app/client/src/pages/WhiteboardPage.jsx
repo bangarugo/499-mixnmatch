@@ -8,8 +8,23 @@ import { motion } from "framer-motion";
 const categories = ["headwear", "tops", "bottoms", "footwear"];
 
 const WhiteboardPage = () => {
+  // remember the state of items on the whiteboard
+  const [whiteboardItems, setWhiteboardItems] = useState({
+    Headwear: [],
+    Tops: [],
+    Bottoms: [],
+    Footwear: [],
+  });
+
+  const addToWhiteboard = (category, item) => {
+    setWhiteboardItems((prevState) => ({
+      ...prevState,
+      [category]: [item], // makes sure that there only one item per category
+    }));
+  };
+
   return (
-    <div className="page-background min-h-screen bg-medium-slate-blue text-white">
+    <div className="page-background min-h-screen  bg-medium-slate-blue text-white">
       <NavBar />
       <main
         className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-4 mb-8 text-center space-x-2 h-screen w-screen 
@@ -17,9 +32,9 @@ const WhiteboardPage = () => {
       "
       >
         {/* This is where the users closet items will be displayed. */}
-        <ClosetSidebar />
+        <ClosetSidebar addToWhiteboard={addToWhiteboard} />
 
-        <div className="js-center-section  h-full flex flex-col  space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
+        <div className="js-center-section  h-full flex flex-col  space-y-3 text-2xl p-2 w-1/2 rounded xl:p-4 xl:xl:w-3/5 items-center">
           <motion.h3
             className=" font-bold p-2"
             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +45,7 @@ const WhiteboardPage = () => {
           </motion.h3>
           {/* whiteboard space where item cards can be placed*/}
 
-          <WhiteboardSpace />
+          <WhiteboardSpace whiteboardItems={whiteboardItems} />
 
           <div className="  flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2 ">
             <button className="bg-green-400 p-2 w-1/4 rounded text-lg border border-black ">

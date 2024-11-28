@@ -23,7 +23,7 @@ const containerVariants = {
     },
   },
 };
-const ClosetSidebar = () => {
+const ClosetSidebar = ({ addToWhiteboard }) => {
   const categories = ["Headwear", "Tops", "Bottoms", "Footwear"];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +41,11 @@ const ClosetSidebar = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <aside
-      className="closet-section bg-medium-slate-blue flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg  
+    <motion.aside
+      variants={containerVariants}
+      animate={containerControls}
+      initial="close"
+      className="closet-section bg-neutral-200/50 flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg border-2 border-black 
       xl:p-4 xl:w-1/5"
     >
       <div className="closet-header flex justify-between items-center">
@@ -72,14 +75,17 @@ const ClosetSidebar = () => {
                   <PlusCircleIcon className=" w-5" />
                 </button> */}
               </div>
-              <motion.div className="js-closet-item-category-container w-full h-full overflow-y-auto">
-                <ClosetGallery category={category} />
-              </motion.div>
+              <div className="js-closet-item-category-container w-full h-full overflow-y-auto">
+                <ClosetGallery
+                  category={category}
+                  addToWhiteboard={addToWhiteboard}
+                />
+              </div>
             </div>
           ))}
         </section>
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 
