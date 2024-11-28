@@ -29,6 +29,7 @@ const Loginschema = new mongoose.Schema({
       url: String,
       key: String,
       caption: String,
+      category: { type: String, required: true }, // New category field
       uploadedAt: { type: Date, default: Date.now },
     },
   ],

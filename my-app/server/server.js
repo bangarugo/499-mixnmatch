@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
@@ -11,9 +12,6 @@ const path = require("path");
 const upload = require("./config/s3Config");
 const OpenAI = require("openai");
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // Add your API key in .env
-const { ClarifaiStub, grpc } = require("clarifai-nodejs-grpc"); // Clarifai client import
-const { ImageAnnotatorClient } = require("@google-cloud/vision");
-const visionClient = new ImageAnnotatorClient(); // Configure Google Vision API
 // Import the config file, which connects to MongoDB
 const collection = require("./config");
 
@@ -22,18 +20,6 @@ const app = express();
 // View engine setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// Clarifai setup
-
-const PAT = process.env.CLARIFAI_PAT; // Your Clarifai Personal Access Token
-const USER_ID = process.env.CLARIFAI_USER_ID || "clarifai"; // Your user ID
-const APP_ID = process.env.CLARIFAI_APP_ID || "main"; // Your app ID
-const MODEL_ID = "apparel-recognition"; // Your model ID for apparel recognition
-const MODEL_VERSION_ID = "dc2cd6d9bff5425a80bfe0c4105583c1"; // Version ID, optional but recommended
-
-const stub = ClarifaiStub.grpc();
-const metadata = new grpc.Metadata();
-metadata.set("authorization", `Key ${PAT}`);
 
 // Middleware setup
 app.use(
@@ -143,11 +129,11 @@ app.post("/logout", (req, res) => {
   });
 });
 
-// Route to handle image upload and caption generation using Clarifai
-
+// FashionVLM-based Upload Route
 app.post("/upload-image", upload.single("image"), async (req, res) => {
-  const { userId } = req.body;
+  const { userId, category } = req.body;
 
+  // Validate userId
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" });
   }
@@ -158,74 +144,53 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const IMAGE_URL = "https://samples.clarifai.com/metro-north.jpg"; // Sample image from Clarifai
+    // S3 URL of the uploaded image
+    const imagePath = req.file.location;
 
-    // Clarifai API call to detect apparel in the uploaded image
-    stub.PostModelOutputs(
+    // Send the imagePath to the Python API for analysis
+    const pythonApiUrl = "http://127.0.0.1:8000/analyze-image/";
+    const response = await axios.post(
+      pythonApiUrl,
+      { imagePath }, // Sending JSON data
       {
-        user_app_id: { user_id: USER_ID, app_id: APP_ID },
-        model_id: MODEL_ID,
-        version_id: MODEL_VERSION_ID, // This is optional. Defaults to the latest model version
-        inputs: [
-          {
-            data: {
-              image: { url: IMAGE_URL }, // URL from S3 upload
-            },
-          },
-        ],
-      },
-      metadata,
-      async (err, response) => {
-        if (err) {
-          console.error("Clarifai API error:", err);
-          return res.status(500).json({ error: "Error analyzing image" });
-        }
-
-        if (response.status.code !== 10000) {
-          return res.status(500).json({ error: "Clarifai API failed" });
-        }
-
-        console.log(response);
-        // Get the detected concepts (apparel items) from Clarifai
-        const regions = response.outputs[0].data.regions;
-        const captions = regions
-          .map((region) => region.data.concepts[0]?.name)
-          .filter(Boolean);
-
-        if (captions.length === 0) {
-          return res
-            .status(400)
-            .json({ error: "No apparel detected in the image" });
-        }
-
-        // Save image and caption info to the user's profile
-        user.images.push({
-          url: req.file.location,
-          key: req.file.key,
-          caption: captions.join(", "), // Join all detected concepts (apparel items)
-        });
-
-        await user.save();
-
-        // Return response to the client with image URL and detected captions
-        res.status(200).json({
-          message: "Image uploaded and caption generated successfully",
-          image: {
-            url: req.file.location,
-            key: req.file.key,
-            caption: captions.join(", "), // Displaying generated captions
-          },
-        });
+        headers: {
+          "Content-Type": "application/json", // Set the correct content type
+        },
       }
     );
+
+    const { caption, error } = response.data;
+
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
+    // Save image details to the user's profile under the selected category
+    user.images.push({
+      url: req.file.location,
+      key: req.file.key,
+      caption,
+      category,
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Image uploaded and categorized successfully",
+      image: {
+        url: req.file.location,
+        key: req.file.key,
+        caption,
+        category,
+      },
+    });
   } catch (error) {
     console.error("Error in /upload-image:", error);
     res.status(500).json({ error: "Error uploading image" });
   }
 });
 
-//MIX and MATCH API Endpont
-
+//MIX and MATCH API Endpoint
 app.post("/mix-and-match", async (req, res) => {
   const { userId } = req.body;
 
@@ -240,22 +205,73 @@ app.post("/mix-and-match", async (req, res) => {
       return res.status(404).json({ error: "No images found for this user" });
     }
 
-    // Extract captions from user images
-    const captions = user.images.map((image) => image.caption).filter(Boolean);
+    // Extract clothing categories and captions from user images
+    const categorizedImages = user.images.reduce((acc, image) => {
+      const { caption, url, category } = image;
+      if (category) {
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push({ caption: caption.toLowerCase(), url });
+      }
+      return acc;
+    }, {});
 
-    if (captions.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No captions found for this user's images" });
-    }
+    // Define required categories (may not all have items)
+    const requiredCategories = [
+      "headwear",
+      "tops",
+      "shirts",
+      "pants",
+      "footwear",
+    ];
 
-    // Prepare a prompt for GPT
+    // Find missing categories, but don't return an error if they are empty
+    const missingCategories = requiredCategories.filter(
+      (category) =>
+        !categorizedImages[category] || categorizedImages[category].length === 0
+    );
+
+    // Prepare the list of categories with available items
+    const availableCategories = requiredCategories.filter(
+      (category) =>
+        categorizedImages[category] && categorizedImages[category].length > 0
+    );
+
+    // Prepare the prompt for GPT based on available categories
     const prompt = `
-You are a stylist. Create an outfit by choosing one item from each category below:
-${captions.map((caption, index) => `Item ${index + 1}: ${caption}`).join("\n")}
+You are an expert fashion stylist. Below is a list of clothing items categorized by type. Your task is to create a stylish and balanced outfit by selecting one item from each category that has available items. Ensure that no two items belong to the same category, and each outfit is unique and randomized.
 
-Output the outfit description as: "Outfit: [Item 1], [Item 2], [Item 3]."
-        `;
+Here are the categories and available items:
+
+${availableCategories
+  .map(
+    (category) =>
+      `${category}:\n${(categorizedImages[category] || [])
+        .map((item) => `- "${item.caption}"`)
+        .join("\n")}`
+  )
+  .join("\n\n")}
+
+Please select **exactly one caption** from each category with available items to create an outfit. But if any item specifically from the "tops" category does not fits with the outfit you can leave out the top category in your response.
+ Randomize your selection to ensure the outfit is different each time this request is made.
+
+Respond in the following format:
+"Outfit: [headwear Item], [tops Item], [shirts Item], [pants Item], [footwear Item]"...
+If an item from the "tops" item does not fits in with the outfit then you can leave it as it is.
+
+For example if the tops item does not fit in with the outfit you can Respond in the following format:
+"Outfit: [headwear Item], [shirts Item], [pants Item], [footwear Item]"...
+
+Apart from "tops" category every other category item is a must.
+
+Remember:
+1. Each caption in the outfit must come from a distinct category.
+2. The response should be unique and random every time.
+3. Avoid selecting multiple items from the same category.
+
+Create the outfit now.
+`;
 
     // Send the prompt to OpenAI GPT
     const response = await openai.chat.completions.create({
@@ -266,7 +282,52 @@ Output the outfit description as: "Outfit: [Item 1], [Item 2], [Item 3]."
     const outfitDescription =
       response.choices[0]?.message?.content || "No outfit generated.";
 
-    res.status(200).json({ outfit: outfitDescription });
+    // Extract the clothing items from the description
+    const outfitItems = outfitDescription
+      .replace("Outfit:", "")
+      .split(",")
+      .map((item) => item.trim().toLowerCase());
+
+    console.log(outfitItems);
+
+    // Function to normalize strings
+    function normalizeString(str) {
+      return str
+        .toLowerCase()
+        .replace(/[-]/g, " ") // Replace dashes with spaces
+        .replace(/[^\w\s]/g, "") // Remove punctuation
+        .replace(/\s+/g, " ") // Replace multiple spaces with a single space
+        .trim(); // Trim spaces from start and end
+    }
+
+    // Matching logic
+    const outfitImages = availableCategories
+      .map((category) => {
+        const matchedItem = (categorizedImages[category] || []).find(
+          (image) => {
+            const normalizedCaption = normalizeString(image.caption);
+
+            return outfitItems.some((outfitItem) => {
+              const normalizedOutfitItem = normalizeString(outfitItem);
+              return (
+                normalizedCaption.includes(normalizedOutfitItem) ||
+                normalizedOutfitItem.includes(normalizedCaption)
+              );
+            });
+          }
+        );
+
+        return matchedItem ? matchedItem.url : null;
+      })
+      .filter((url) => url !== null);
+
+    console.log(outfitItems);
+
+    res.status(200).json({
+      outfit: outfitDescription,
+      images: outfitImages, // Return the URLs of matching images
+      missingCategories, // Return the categories that have no images
+    });
   } catch (error) {
     console.error("Error in /mix-and-match:", error);
     res.status(500).json({ error: "Internal server error" });

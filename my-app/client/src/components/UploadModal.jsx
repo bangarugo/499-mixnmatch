@@ -1,38 +1,46 @@
 import React, { useState } from "react";
 
-const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
+const categories = [
+  { value: "headwear", label: "Headwear (Caps, Hats, etc.)" },
+  { value: "tops", label: "Tops (Jackets, Sweaters, etc.)" },
+  { value: "shirts", label: "Shirts (T-Shirts, Shirts, etc.)" },
+  { value: "pants", label: "Pants (Trousers, Shorts, etc.)" },
+  { value: "footwear", label: "footwear (All kinds of shoes)" },
+];
+
+const UploadModal = ({ isOpen, toggleModal, setImageUploaded }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
 
   // Handle image selection
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Get the uploaded file
+    const file = e.target.files[0];
 
     if (file) {
-      // Check file type
       const validTypes = ["image/jpeg", "image/png", "image/jpg"];
       if (!validTypes.includes(file.type)) {
         setErrorMessage("Only JPEG, PNG, and JPG files are accepted.");
-        setSelectedImage(null); // Clear the selected image
+        setSelectedImage(null);
         return;
       }
 
-      setErrorMessage(""); // Clear any previous error messages
-      setSelectedImage(file); // Set the selected image
+      setErrorMessage("");
+      setSelectedImage(file);
     }
   };
-  // Save image and call API
+
   const handleSave = async () => {
-    if (!selectedImage) {
-      alert("Please upload an image.");
+    if (!selectedImage || !selectedCategory) {
+      alert("Please upload an image and select a category.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("userId", user?._id); // Add userId
-    formData.append("image", selectedImage); // Add the image file
-
+    formData.append("userId", user?._id);
+    formData.append("image", selectedImage);
+    formData.append("category", selectedCategory);
 
     try {
       const response = await fetch("http://localhost:8080/upload-image", {
@@ -41,9 +49,7 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
       });
 
       if (response.ok) {
-        setImageUploaded(true)
-       
-        // alert("Image uploaded successfully!");
+        setImageUploaded(true);
       } else {
         alert("Failed to upload image.");
       }
@@ -51,14 +57,16 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
       console.error("Error uploading image:", error);
       alert("An error occurred.");
     }
-    setSelectedImage(null)
-    toggleModal(); // Close the modal
+    setSelectedImage(null);
+    setSelectedCategory("");
+    toggleModal();
   };
 
-  const handleDiscard=()=>{
-    setSelectedImage(null)
-    toggleModal()
-  }
+  const handleDiscard = () => {
+    setSelectedImage(null);
+    setSelectedCategory("");
+    toggleModal();
+  };
 
   return (
     <>
@@ -68,7 +76,7 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
           onClick={toggleModal}
         >
           <div
-            className="flex flex-col justify-between items-center space-y-6 relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-6 rounded shadow-lg"
+            className="flex flex-col justify-between items-center space-y-6 relative bg-ash-gray h-4/4 w-3/4 xl:w-1/2 p-6 rounded shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -79,11 +87,10 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
             </button>
 
             <h2 className="upload-header text-xl font-bold text-black ">
-              Upload Files
+              Upload Images
             </h2>
 
-            {/* Image Upload Box */}
-            <div className="upload-box bg-white h-1/2 w-3/4 xl:w-3/5 flex flex-col justify-center items-center space-y-4">
+            <div className="upload-box h-1/2 w-3/4 xl:w-3/5 flex flex-col justify-center items-center space-y-4">
               {selectedImage ? (
                 <img
                   src={URL.createObjectURL(selectedImage)}
@@ -91,7 +98,7 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
                   className="h-32 w-32 object-cover rounded"
                 />
               ) : (
-                <p className="text-gray-600">No file selected</p>
+                <p className="text-gray-600">No Image selected</p>
               )}
               <input
                 type="file"
@@ -99,10 +106,33 @@ const UploadModal = ({ isOpen, toggleModal, userId,setImageUploaded }) => {
                 onChange={handleImageChange}
                 className="text-sm"
               />
+              <div className="mb-4">
+                <label
+                  htmlFor="category"
+                  className="block text-lg font-medium text-gray-700 mb-2"
+                >
+                  Select a Category
+                </label>
+                <select
+                  id="category"
+                  className="w-full p-3 border rounded-lg bg-white text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in-out"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="None" disabled>
+                    Select a Category
+                  </option>
+                  {categories.map((category) => (
+                    <option key={category.value} value={category.value}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-{errorMessage && (
-        <p className="text-red-500 text-sm">{errorMessage}</p>
-      )}
+              {errorMessage && (
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
             </div>
 
             <div className="save-options flex flex-row space-x-5 h-1/6 w-3/5 justify-evenly items-center">
