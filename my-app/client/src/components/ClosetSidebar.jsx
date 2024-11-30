@@ -8,7 +8,13 @@ import {
 } from "@heroicons/react/24/solid";
 import { Tooltip } from "react-tooltip";
 const ClosetSidebar = () => {
-  const closetPieceOptions = ["Headwear", "Tops", "Bottoms", "Footwear"];
+  const closetPieceOptions = [
+    "Headwear",
+    "Tops",
+    "Shirts",
+    "Pants",
+    "Footwear",
+  ];
   return (
     <aside
       className="closet-section bg-medium-slate-blue flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg  

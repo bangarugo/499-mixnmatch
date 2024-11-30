@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login"; // Importing Login component
@@ -10,16 +10,25 @@ import Closet from "./pages/Closet";
 import Whiteboard from "./pages/Whiteboard";
 
 const App = () => {
+  const [allClosetData, setAllClosetData] = useState(null);
   return (
     <Router>
       <Routes>
-      <Route path="/welcome" element={<Welcome />} /> {/* Route for Welcome Page */}
-        <Route path="/home" element={<MainPage />} /> {/* Route for Main Page */}
+        <Route path="/welcome" element={<Welcome />} />{" "}
+        {/* Route for Welcome Page */}
+        <Route path="/home" element={<MainPage />} />{" "}
+        {/* Route for Main Page */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/closet" element={<Closet />} />
-        <Route path="/whiteboard" element={<Whiteboard />} />
+        <Route
+          path="/closet"
+          element={<Closet setAllClosetData={setAllClosetData} />}
+        />
+        <Route
+          path="/whiteboard"
+          element={<Whiteboard allClosetData={allClosetData} />}
+        />
       </Routes>
     </Router>
   );

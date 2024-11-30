@@ -3,11 +3,12 @@ import NavBar from "../components/NavBar";
 import SquareGrid from "../components/SquareGridY";
 import UploadModal from "../components/UploadModal";
 
-const Closet = () => {
+const Closet = ({ setAllClosetData }) => {
   const [currentFilter, setFilter] = useState("All");
   const [isModalOpen, setModalOpen] = useState(false);
   const [closetImages, setClosetImages] = useState([]);
   const [imageUploaded, setImageUploaded] = useState(false);
+  const [imageDeleted, setImageDeleted] = useState(false);
 
   const filterOptions = [
     "All",
@@ -22,7 +23,7 @@ const Closet = () => {
 
   useEffect(() => {
     getClosetImages();
-  }, [imageUploaded]);
+  }, [imageUploaded, imageDeleted]);
 
   const userId = user?._id;
 
@@ -40,14 +41,15 @@ const Closet = () => {
       }
 
       const data = await response.json();
+      setAllClosetData(data);
       const images = data.user.images;
 
       // Categorize images by their category
       const categorizedImages = images.reduce((acc, image) => {
-        const { category, caption, url } = image;
+        const { category, caption, url, _id } = image;
         if (category) {
           if (!acc[category]) acc[category] = [];
-          acc[category].push({ caption, url });
+          acc[category].push({ caption, url, _id });
         }
         return acc;
       }, {});
@@ -127,7 +129,11 @@ const Closet = () => {
             <div className="inner-closet-container flex flex-col w-full h-full gap-y-1">
               <div className="sticky-top-div bg-stone-300 w-1/4 sticky top-0 flex text-center text-xl font-bold py-4"></div>
               <div className="closet-grid-container bg-stone-400 overflow-y-auto">
-                <SquareGrid closetImages={filteredImages} />
+                <SquareGrid
+                  closetImages={filteredImages}
+                  setClosetImages={setClosetImages}
+                  setImageDeleted={setImageDeleted}
+                />
               </div>
               <div className="sticky-bottom-div sticky bottom-0 mt-4 py-2">
                 <button

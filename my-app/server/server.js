@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const initializePassport = require("./passport-config");
 const path = require("path");
 const upload = require("./config/s3Config");
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const OpenAI = require("openai");
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // Add your API key in .env
 // Import the config file, which connects to MongoDB
@@ -25,7 +26,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"], // Add DELETE here
     credentials: true,
   })
 );
@@ -33,6 +34,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
+
+//S3 CLIENT Initialization
+const s3 = new S3Client({
+  region: process.env.AWS_REGION_NAME,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 // Passport setup
 initializePassport(passport);
@@ -148,6 +158,7 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
     const imagePath = req.file.location;
 
     // Send the imagePath to the Python API for analysis
+    // Send the imagePath to the Python API for analysis
     const pythonApiUrl = "http://127.0.0.1:8000/analyze-image/";
     const response = await axios.post(
       pythonApiUrl,
@@ -159,17 +170,66 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
       }
     );
 
+    function normalizeCaption(caption) {
+      // Define stop words
+      const stopWords = new Set([
+        "a",
+        "the",
+        "of",
+        "on",
+        "with",
+        "and",
+        "to",
+        "in",
+        "is",
+        "for",
+        "it",
+        "this",
+        "by",
+        "an",
+        "as",
+        "at",
+        "from",
+        "there",
+        "that",
+        "ground",
+        "are",
+        "close",
+        "up",
+        "man",
+        "standing",
+        "street",
+      ]);
+
+      // Normalize the caption by converting to lowercase, removing punctuation, and trimming extra spaces
+      const normalizedCaption = caption
+        .toLowerCase()
+        .replace(/[-]/g, " ") // Replace dashes with spaces
+        .replace(/[^\w\s]/g, "") // Remove punctuation
+        .replace(/\s+/g, " ") // Replace multiple spaces with a single space
+        .trim(); // Trim spaces from start and end
+
+      // Remove stop words from the caption
+      const words = normalizedCaption.split(" ");
+      const filteredWords = words.filter((word) => !stopWords.has(word));
+
+      // Return the cleaned-up caption by joining the remaining words
+      return filteredWords.join(" ");
+    }
+
     const { caption, error } = response.data;
 
     if (error) {
       return res.status(400).json({ error });
     }
 
+    const normalizedCaption = normalizeCaption(caption);
+
     // Save image details to the user's profile under the selected category
     user.images.push({
       url: req.file.location,
       key: req.file.key,
-      caption,
+      caption: normalizedCaption,
       category,
     });
 
@@ -180,13 +240,54 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
       image: {
         url: req.file.location,
         key: req.file.key,
-        caption,
+        caption: normalizedCaption,
         category,
       },
     });
   } catch (error) {
     console.error("Error in /upload-image:", error);
     res.status(500).json({ error: "Error uploading image" });
+  }
+});
+
+// Delete Image Endpoint
+app.delete("/delete-image/:imageId", async (req, res) => {
+  const { imageId } = req.params;
+
+  try {
+    // Find the user by their user ID (you may want to add authentication here)
+    const user = await collection.findOne({ "images._id": imageId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove the image from the user's images array
+    const imageIndex = user.images.findIndex(
+      (image) => image._id.toString() === imageId
+    );
+
+    if (imageIndex === -1) {
+      return res.status(404).json({ error: "Image not found" });
+    }
+
+    const imageToDelete = user.images[imageIndex];
+
+    // Remove image from the array
+    user.images.splice(imageIndex, 1);
+
+    // Optionally, delete the image from S3
+    const s3Params = {
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: imageToDelete.key,
+    };
+    await s3.send(new DeleteObjectCommand(s3Params));
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).json({ message: "Image deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting image" });
   }
 });
 
@@ -238,6 +339,12 @@ app.post("/mix-and-match", async (req, res) => {
         categorizedImages[category] && categorizedImages[category].length > 0
     );
 
+    const preMessage = {
+      role: "system",
+      content:
+        "You are a strict fashion assistant. Always ensure the outfit adheres strictly to the rules given in the prompt. Any deviation is unacceptable.",
+    };
+
     // Prepare the prompt for GPT based on available categories
     const prompt = `
 You are an expert fashion stylist. Below is a list of clothing items categorized by type. Your task is to create a stylish and balanced outfit by selecting one item from each category that has available items. Ensure that no two items belong to the same category, and each outfit is unique and randomized.
@@ -253,15 +360,20 @@ ${availableCategories
   )
   .join("\n\n")}
 
-Please select **exactly one caption** from each category with available items to create an outfit. But if any item specifically from the "tops" category does not fits with the outfit you can leave out the top category in your response.
+Please select **exactly one caption** from each category with available items to create an outfit. But if an item from the "tops" category does not fits with the outfit you can leave out the top category in your response.
  Randomize your selection to ensure the outfit is different each time this request is made.
 
 Respond in the following format:
-"Outfit: [headwear Item], [tops Item], [shirts Item], [pants Item], [footwear Item]"...
+"Outfit: headwear Item, tops Item, shirts Item, pants Item, footwear Item"...
+
+If from available categories there is a category which has no item, then dont send that category item in your response.
+For example if headwear category does not have any item in it your suggested outfit should be:
+"Outfit:  tops Item, shirts Item, pants Item, footwear Item"...
+
 If an item from the "tops" item does not fits in with the outfit then you can leave it as it is.
 
 For example if the tops item does not fit in with the outfit you can Respond in the following format:
-"Outfit: [headwear Item], [shirts Item], [pants Item], [footwear Item]"...
+"Outfit: headwear caption, tops caption, shirts caption, pants caption, footwear caption"
 
 Apart from "tops" category every other category item is a must.
 
@@ -269,6 +381,7 @@ Remember:
 1. Each caption in the outfit must come from a distinct category.
 2. The response should be unique and random every time.
 3. Avoid selecting multiple items from the same category.
+4. The captions in your response should be exactly same as you recieve it.
 
 Create the outfit now.
 `;
@@ -276,56 +389,20 @@ Create the outfit now.
     // Send the prompt to OpenAI GPT
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
+      messages: [preMessage, { role: "user", content: prompt }],
     });
 
     const outfitDescription =
       response.choices[0]?.message?.content || "No outfit generated.";
 
-    // Extract the clothing items from the description
-    const outfitItems = outfitDescription
-      .replace("Outfit:", "")
-      .split(",")
-      .map((item) => item.trim().toLowerCase());
-
-    console.log(outfitItems);
-
-    // Function to normalize strings
-    function normalizeString(str) {
-      return str
-        .toLowerCase()
-        .replace(/[-]/g, " ") // Replace dashes with spaces
-        .replace(/[^\w\s]/g, "") // Remove punctuation
-        .replace(/\s+/g, " ") // Replace multiple spaces with a single space
-        .trim(); // Trim spaces from start and end
-    }
-
-    // Matching logic
-    const outfitImages = availableCategories
-      .map((category) => {
-        const matchedItem = (categorizedImages[category] || []).find(
-          (image) => {
-            const normalizedCaption = normalizeString(image.caption);
-
-            return outfitItems.some((outfitItem) => {
-              const normalizedOutfitItem = normalizeString(outfitItem);
-              return (
-                normalizedCaption.includes(normalizedOutfitItem) ||
-                normalizedOutfitItem.includes(normalizedCaption)
-              );
-            });
-          }
-        );
-
-        return matchedItem ? matchedItem.url : null;
-      })
-      .filter((url) => url !== null);
-
-    console.log(outfitItems);
+    // Clean the outfit description before sending it in the response
+    const cleanedOutfitDescription = outfitDescription
+      .match(/Outfit:\s*(.*)/)?.[1] // Extract the text after "Outfit:"
+      .replace(/["]/g, "") // Remove quotes
+      .trim();
 
     res.status(200).json({
-      outfit: outfitDescription,
-      images: outfitImages, // Return the URLs of matching images
+      outfit: cleanedOutfitDescription,
       missingCategories, // Return the categories that have no images
     });
   } catch (error) {
