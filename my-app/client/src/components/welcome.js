@@ -13,7 +13,7 @@ export default function WelcomePage(){
             setWords((prev) => (prev+1) % words.length);
         }, 2000);
         return () => clearInterval(interval);
-    }, []);
+    }, [words.length]);
 
     useEffect(() => {
         const handleScroll = () => {

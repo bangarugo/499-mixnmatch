@@ -35,11 +35,8 @@ linear-gradient(135deg,
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000%;
   width: 100%;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: center;
+  z-index: 1;
 
 }
 

@@ -55,7 +55,7 @@ app.get("/register", (req, res) => {
     res.json({ message: "Register Page", error: req.flash("error_msg") });
 });
 
-//Route to user profile 
+//Route to profile 
 app.get('/profile', ensureAuthenticated, (req, res) => {
     res.render('profile', { user: req.user }); 
   });
