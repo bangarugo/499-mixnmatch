@@ -1,42 +1,79 @@
 import React from "react";
 import '../styles/profile.css';
+import profileImage from '../images/profile.jpeg';
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons'; 
+import { motion } from 'framer-motion';
+import Navbar from '../components/NavBar';
 
-const Profile = () => {
+const Profile = ({ user }) => {
     return (
-      <div className="container">
-        <div className="profile-background">
-          <h1 className="title">MIX N' MATCH</h1>
-        </div>
-  
-        <nav className="navbar">
-          <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/closet">Closet</a></li>
-            <li><a href="/outfits">Outfits</a></li>
-            <li><a href="/profile">Profile</a></li>
-          </ul>
-        </nav>
-  
-        <div className="profile-section">
-          <div className="profile-picture"></div>
-        </div>
-        {/* Links for each nav button will be added soon */}
-        <div className="icon-buttons">
-          <div className="icon-button home-icon"></div>
-          <div className="icon-button outfit-icon"></div>
-          <div className="icon-button closet-icon"></div>
-        </div>
-  
-        <div className="badges">
-          <h3>Badges Earned</h3>
-          <div className="badges-grid">
+      <div className="Navbar">
+      <Navbar />
+      <div className="profile-card-content">
+      <div className = "user-box">
+      <div className="user-form">
+      <div className="profile-icon" onClick={() => document.getElementById('input').click()}>
+        <img src = {profileImage} alt="Profile-pic" className="Profile-pic"></img>
+
+        <div className="embedded-camera-icon">
+          <FontAwesomeIcon icon={faImage} />
+          </div>
+
+          <input type = "file" 
+          accept = "image/jpeg, image/jpg, image/png, image/webp" 
+          id = "input" 
+          className = "input-file"></input>
+      </div>
+        <div className="user-info">
+          <motion.h1
+            initial = {{ 
+              x:-100,
+              opacity: 0
+            }}
+            animate = {{
+              x: 0,
+              opacity: 1
+            }}
+            transition={{
+              ease: "circInOut"
+            }}
+          
+    
+          >@{user?.name}</motion.h1>
+          <p></p>
+          <div className="badges-section"></div>
+          <motion.button 
+          className="show-badges-button"
+          whileHover={{
+            scale: 1.15
+          }}
+          whileTap={{
+            scale: 0.85,
+            rotate: "-2.5deg"
+          }}
+          transition={{
+            duration: 0.125,
+            ease: "easeInOut"
+          }}
+          >Show Badges</motion.button>
+          <div className="badges-box">
             <div className="badge">Style Explorer</div>
             <div className="badge">Closet Organizer</div>
             <div className="badge">Trendsetter</div>
             <div className="badge">Mix Master</div>
           </div>
         </div>
+        </div>
+        <Link to="/login" className="logout-button">Logout</Link>
+
+        
       </div>
+      </div>
+      </div>
+
+
     );
   };
   

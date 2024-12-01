@@ -4,7 +4,7 @@ import "./App.css";
 import Login from "./components/login"; // Importing Login component
 import Register from "./components/register"; // Importing Register component
 import MainPage from "./pages/MainPage";
-import Welcome from "./components/welcome";
+// import Welcome from "./components/welcome";
 import Profile from "./components/profile"; //Importing Profile Page
 import ClosetPage from "./pages/ClosetPage";
 import Whiteboard from "./pages/WhiteboardPage";
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/welcome" element={<Welcome />} />{" "}
+        {/* <Route path="/welcome" element={<Welcome />} />{" "} */}
         {/* Route for Welcome Page */}
         <Route path="/home" element={<MainPage />} />{" "}
         {/* Route for Main Page */}
