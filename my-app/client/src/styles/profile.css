@@ -1,185 +1,199 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at 15% 15%, 
-    rgba(235, 184, 117, 0.9) 0%,
-    rgba(235, 184, 117, 0) 25%
-  ),
-  radial-gradient(circle at 85% 85%, 
-    rgba(200, 220, 235, 0.9) 0%,
-    rgba(200, 220, 235, 0) 25%
-  ),
-  radial-gradient(circle at 95% 5%, 
-    rgba(200, 220, 235, 0.9) 0%,
-    rgba(200, 220, 235, 0) 25%
-  ),
-  linear-gradient(135deg,
-    rgb(220, 218, 218) 50%,
-    rgb(244, 237, 237) 100%
-  );
-    color: #000;
-    min-height: 100vh;
-    width: 100vw;
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at 15% 15%, 
+  rgba(235, 184, 117, 0.9) 0%,
+  rgba(235, 184, 117, 0) 25%
+),
+radial-gradient(circle at 85% 85%, 
+  rgba(200, 220, 235, 0.9) 0%,
+  rgba(200, 220, 235, 0) 25%
+),
+radial-gradient(circle at 95% 5%, 
+  rgba(200, 220, 235, 0.9) 0%,
+  rgba(200, 220, 235, 0) 25%
+),
+linear-gradient(135deg,
+  rgb(220, 218, 218) 50%,
+  rgb(244, 237, 237) 100%
+);
+  color: #000;
+  min-height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 
+}
+
+.Navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000%;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.profile-card-content{
+  margin-top: 100px;
 }
 
 .user-box {
-    position:relative;
-    width: 350px;
-    height: 500px;
-    background-color: #f0f0f0;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    gap: 20px;
+  position:relative;
+  width: 350px;
+  height: 500px;
+  background-color: #f0f0f0;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  gap: 20px;
 }
 
 .input-file{
-    display: none; /* Removes text associated with the input */
+  display: none; /* Removes text associated with the input */
 }
 
 
 
 .profile-icon{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
 .profile-icon img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  
+width: 100%;
+height: 100%;
+object-fit: cover;
+
 }
 
 .embedded-camera-icon{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(240, 240, 240, 0.8);
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    color:blueviolet;
-    opacity: 0;
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 240, 240, 0.8);
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color:blueviolet;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
 
 }
 
 .profile-icon:hover .embedded-camera-icon{
-    opacity: 1;
+  opacity: 1;
 }
 
 
 
 .user-info{
-    color: black;
-    text-align: center;
+  color: black;
+  text-align: center;
 }
 
 .user-info h1{
-  font-family: 'Arial', sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 8px 0;
-  text-shadow:  0 7px 6px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.2s ease;
+font-family: 'Arial', sans-serif;
+font-size: 18px;
+font-weight: bold;
+margin: 8px 0;
+text-transform: uppercase;
+text-shadow:  0 7px 6px rgba(0, 0, 0, 0.5);
+cursor: pointer;
+transition: transform 0.3s ease, background-color 0.2s ease;
 }
 
 .user-info p {
-    font-size: 14px;
-    color: #6b7280;
-    cursor: pointer;
-  }
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+}
 
-  .logout-button {
-    width: 150px; 
-    height: 70px;
-    border: 2px solid #fff;
-    border-radius: 6px; 
-    background-color: #000; 
-    color: #fff; 
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, background-color 0.2s ease;
-  }
-  
-  .logout-button:hover {
-    background-color: #333; 
-    transform: scale(1.1); 
-  }
+.logout-button {
+  width: 150px; 
+  height: 70px;
+  border: 2px solid #fff;
+  border-radius: 6px; 
+  background-color: #000; 
+  color: #fff; 
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #333; 
+  transform: scale(1.1); 
+}
 
 .badges-box {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-   
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+ 
 }
 
 .badges-section:hover .badges-box{
-  display: flex;
+display: flex;
 }
 
 .show-badges-button {
-    width: 150px; 
-    height: 70px;
-    border: 2px solid #fff;
-    border-radius: 6px; 
-    background-color: #000; 
-    color: #fff; 
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    white-space: nowrap;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+  width: 150px; 
+  height: 70px;
+  border: 2px solid #fff;
+  border-radius: 6px; 
+  background-color: #000; 
+  color: #fff; 
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
 }
 
 .show-badges-button:hover {
-  background-color: #333; 
+background-color: #333; 
 }
 
 .badge {
-  background-color: #f472b6;
-  color: #ffffff;
-  font-size: 12px;
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-weight: bold;
-  }
-
-
-
+background-color: #f472b6;
+color: #ffffff;
+font-size: 12px;
+padding: 6px 12px;
+border-radius: 16px;
+font-weight: bold;
+}

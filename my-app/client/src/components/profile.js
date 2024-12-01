@@ -5,9 +5,13 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons'; 
 import { motion } from 'framer-motion';
+import Navbar from '../components/NavBar';
 
-const Profile = () => {
+const Profile = ({ user }) => {
     return (
+      <div className="Navbar">
+      <Navbar />
+      <div className="profile-card-content">
       <div className = "user-box">
       <div className="user-form">
       <div className="profile-icon" onClick={() => document.getElementById('input').click()}>
@@ -37,8 +41,8 @@ const Profile = () => {
             }}
           
     
-          >STEPHANIE NJOKU</motion.h1>
-          <p>@stephanie</p>
+          >@{user.name}</motion.h1>
+          <p></p>
           <div className="badges-section"></div>
           <motion.button 
           className="show-badges-button"
@@ -66,6 +70,10 @@ const Profile = () => {
 
         
       </div>
+      </div>
+      </div>
+
+
     );
   };
   
