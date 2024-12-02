@@ -1,19 +1,22 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
+const collection = require("./config"); // Your Mongoose model
 
-function initialize(passport, getUserByEmail, getUserById) {
+function initialize(passport) {
     // Function to authenticate users
     const authenticateUsers = async (email, password, done) => {
-        // Get user by email
-        const user = getUserByEmail(email);
-        if (user == null) {
-            return done(null, false, { message: "No user found with that email" });
-        }
         try {
+            // Get user by email
+            const user = await collection.findOne({ email });
+            if (!user) {
+                return done(null, false, { message: "No user found with that email" });
+            }
+
+            // Compare the provided password with the stored hashed password
             if (await bcrypt.compare(password, user.password)) {
                 return done(null, user);
             } else {
-                return done(null, false, { message: "Password Incorrect" });
+                return done(null, false, { message: "Password incorrect" });
             }
         } catch (e) {
             console.log(e);
@@ -22,9 +25,18 @@ function initialize(passport, getUserByEmail, getUserById) {
     };
 
     passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUsers));
-    passport.serializeUser((user, done) => done(null, user.id));
-    passport.deserializeUser((id, done) => {
-        return done(null, getUserById(id));
+
+    // Serialize user by storing user ID in session
+    passport.serializeUser((user, done) => done(null, user._id)); // Use _id from MongoDB
+
+    // Deserialize user by finding the user using the stored ID
+    passport.deserializeUser(async (id, done) => {
+        try {
+            const user = await collection.findById(id); // Get user by ID from DB
+            done(null, user); // Attach user to req.user
+        } catch (error) {
+            done(error, null);
+        }
     });
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login"; // Importing Login component
 import Register from "./components/register"; // Importing Register component
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/welcome" element={<Welcome />} />{" "} */}
+        <Route path="/" element={<Navigate to="/home" />} />
         {/* Route for Welcome Page */}
         <Route path="/home" element={<MainPage />} />{" "}
         {/* Route for Main Page */}

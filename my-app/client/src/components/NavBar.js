@@ -47,7 +47,7 @@ const NavBar = () => {
         </motion.h1>
       </Link> */}
 
-      <Link to="/welcome">
+      <Link to="/home">
         <motion.img
           src={logo}
           alt="Mix n' Match logo"

@@ -28,23 +28,34 @@ app.use(express.urlencoded({ extended: false }));
 // Passport setup
 initializePassport(passport);
 app.use(
-    session({
-        secret: "your_secret_key", // Replace with your own secret
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: "secret_key", 
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, 
+    },
+  })
 );
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// Middleware to check authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(); // If authenticated, continue to the profile page
+  }
+  res.status(401).json({ error: "Unauthorized access" }); // If not authenticated, return 401
+}
+
+
 // Routes and other logic
 app.get("/", (req, res) => {
-    if (req.isAuthenticated()) {
-        res.json({ message: `Welcome ${req.user.firstName}` });
-    } else {
-        res.redirect("/login");
-    }
+  res.redirect("/home");
 });
 // Route to render login
 app.get("/login", (req, res) => {
@@ -57,9 +68,9 @@ app.get("/register", (req, res) => {
 });
 
 //Route to profile 
-app.get('/profile', ensureAuthenticated, (req, res) => {
-    res.render('profile', { user: req.user }); 
-  });
+app.get("/profile", ensureAuthenticated, (req, res) => {
+  res.render("profile", { user: req.user });
+});
 
 // Handle user registration
 app.post("/register", async (req, res) => {
@@ -161,31 +172,16 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
 
 // GET user information
 
-app.get("/userinfo", async (req, res) => {
-    try {
-        // Retrieve userId from query parameters
-        const { userId } = req.query;
+app.get("/userinfo", (req, res) => {
+  console.log("Is user authenticated?", req.isAuthenticated()); // Log if user is authenticated
+  console.log("Session data:", req.session); // Log the session data
+  console.log("User in session:", req.user); // Log the user data in session
 
-        if (!userId) {
-            return res.status(400).json({ error: "User ID is required" });
-        }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
 
-        if (!isValidObjectId(userId)) {
-            return res.status(400).json({ error: "Invalid User ID format" });
-        }
-
-        // Fetch the user from the database
-        const user = await collection.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found against this ID" });
-        }
-
-        res.status(200).json({ user });
-    } catch (error) {
-        console.error("Error in /userinfo:", error);
-        res.status(500).json({ error: error.message });
-    }
+  res.status(200).json({ user: req.user });
 });
 
 // Start the server
