@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import backgroundImage from "../images/background.jpeg";
+// import backgroundImage from "../images/background.jpeg";
+import '../styles/login.css';
+import { motion } from 'framer-motion';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,16 +10,16 @@ const Login = () => {
   const [error, setError] = useState(""); // For error messages
   const navigate = useNavigate(); // Use navigate for redirecting
 
-  const loginStyle = {
-    height: "100vh", // Full viewport height
-    width: "100vw", // Full viewport height
-    backgroundImage: `url(${backgroundImage})`, // Set the background image
-    backgroundSize: "cover", // Cover the entire area
-    backgroundPosition: "center", // Center the image
-    display: "flex", // Center content
-    justifyContent: "center", // Center horizontally
-    alignItems: "center", // Center vertically
-  };
+  // const loginStyle = {
+  //   height: "100vh", // Full viewport height
+  //   width: "100vw", // Full viewport height
+  //   backgroundImage: `url(${backgroundImage})`, // Set the background image
+  //   backgroundSize: "cover", // Cover the entire area
+  //   backgroundPosition: "center", // Center the image
+  //   display: "flex", // Center content
+  //   justifyContent: "center", // Center horizontally
+  //   alignItems: "center", // Center vertically
+  // };
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent the form from refreshing the page
@@ -46,18 +48,50 @@ const Login = () => {
   };
 
   return (
-    <div style={loginStyle}>
-      {" "}
+    <div >
       {/* Apply the loginStyle here */}
+      <div className="page-background"></div>
       <div className="form">
-        <div className="heading">LOGIN</div>
+        <motion.div 
+        className="heading"
+        initial = {{ 
+          x:-100,
+          opacity: 0
+        }}
+        animate = {{
+          x: 0,
+          opacity: 1
+        }}
+        transition={{
+          ease: "circInOut",
+          type: 'spring',
+          stiffness: 300,
+          damping: 20,
+        }}
+        whileHover={{
+          textShadow: '0px 2px 5px rgba(0, 0, 0, 0.5)'
+        }}
+        >LOGIN</motion.div>
         {error && (
           <p style={{ color: "red", textAlign: "center" }}>{error}</p>
         )}{" "}
         {/* Display error message */}
         <form onSubmit={handleLogin}>
           <div>
-            <label htmlFor="e-mail">E-Mail</label>
+            <motion.label 
+            htmlFor="e-mail"
+            initial = {{ 
+              x:-100,
+              opacity: 0
+            }}
+            animate = {{
+              x: 0,
+              opacity: 1
+            }}
+            transition={{
+              ease: "circInOut"
+            }}
+            >E-Mail</motion.label>
             <input
               type="email"
               id="e-mail"
@@ -68,7 +102,20 @@ const Login = () => {
             />
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <motion.label 
+            htmlFor="password"
+            initial = {{ 
+              x:-100,
+              opacity: 0
+            }}
+            animate = {{
+              x: 0,
+              opacity: 1
+            }}
+            transition={{
+              ease: "circInOut"
+            }}
+            >Password</motion.label>
             <input
               type="password"
               id="password"
@@ -78,7 +125,20 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <motion.button 
+          className="submit"
+          whileHover={{
+            scale: 1.15
+          }}
+          whileTap={{
+            scale: 0.85,
+            rotate: "-2.5deg"
+          }}
+          transition={{
+            duration: 0.125,
+            ease: "easeInOut"
+          }}
+          >Submit</motion.button>
         </form>
         <p>
           Don't have an account? <Link to="/signup">Sign Up</Link>

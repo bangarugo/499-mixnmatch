@@ -1,12 +1,20 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
-body {
+html, body {
   font-family: Arial, sans-serif;
-  background-color: #f7f2fa; /* You might remove this if using a background image */
+  background: radial-gradient(125% 125% at 50% 0%, #020617 50% #DD335C);
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+ /* background-color: #f7f2fa; /* You might remove this if using a background image */
+} 
+
+.page-background{
+  background: radial-gradient(125% 125% at 50% 0%, #020617 50% #DD335C);
+
 }
 
 .login-page {
@@ -14,7 +22,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../images/background.jpeg"); /* Adjust the path */
+  background: radial-gradient(125% 125% at 50% 0%, #020617 50% #DD335C);
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the image */
 }
@@ -34,7 +42,7 @@ body {
   ); /* Optional: semi-transparent background for contrast */
 }
 
-.space-left,
+/* .space-left,
 .space-right {
   flex: 1;
   display: flex;
@@ -53,7 +61,7 @@ body {
 .space-right p {
   font-size: 16px;
   color: #888;
-}
+} */
 
 .login-box {
   flex: 2;
