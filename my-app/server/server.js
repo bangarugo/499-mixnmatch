@@ -411,6 +411,84 @@ Create the outfit now.
   }
 });
 
+//Save Outfit Endpoint
+app.post("/save-outfit", async (req, res) => {
+  const { userId, outfitImages, isFavorite } = req.body;
+
+  if (!userId || !outfitImages || outfitImages.length === 0) {
+    return res.status(400).json({ error: "Invalid request data" });
+  }
+
+  try {
+    const user = await collection.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.savedOutfits.push({ outfitImages, isFavorite: !!isFavorite });
+    await user.save();
+
+    res.status(200).json({ message: "Outfit saved successfully" });
+  } catch (error) {
+    console.error("Error saving outfit:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Retreive Saved Outfits Endpoint
+app.get("/saved-outfits", async (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ error: "User ID is required" });
+  }
+
+  try {
+    const user = await collection.findById(userId).select("savedOutfits");
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ savedOutfits: user.savedOutfits });
+  } catch (error) {
+    console.error("Error fetching saved outfits:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//DELETE SAVED OUTFITS
+// Delete Saved Outfit Endpoint
+app.delete("/delete-outfit", async (req, res) => {
+  const { userId, outfitId } = req.body;
+
+  if (!userId || !outfitId) {
+    return res
+      .status(400)
+      .json({ error: "User ID and Outfit ID are required" });
+  }
+
+  try {
+    const user = await collection.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove the outfit with the given ID
+    user.savedOutfits = user.savedOutfits.filter(
+      (outfit) => outfit._id.toString() !== outfitId
+    );
+    await user.save();
+
+    res.status(200).json({ message: "Outfit deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting outfit:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // GET user information
 
 app.get("/userinfo", async (req, res) => {

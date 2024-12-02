@@ -6,7 +6,7 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/solid";
 import { Tooltip } from "react-tooltip";
-import OutfitGallery from "./OutfitGallery";
+import SavedOutfits from "./OutfitGallery";
 import { motion, useAnimationControls } from "framer-motion";
 
 const containerVariants = {
@@ -30,9 +30,36 @@ const containerVariants = {
   },
 };
 
-const OutfitSidebar = () => {
+const OutfitSidebar = ({
+  setOutfitImages,
+  refreshTrigger,
+  setRefreshTrigger,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [savedOutfits, setSavedOutfits] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"));
   const containerControls = useAnimationControls();
+
+  const toggleFavorite = async (outfitId) => {
+    try {
+      const response = await fetch("http://localhost:8080/favorite-outfit", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?._id, outfitId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to toggle favorite");
+      }
+
+      setRefreshTrigger(!refreshTrigger); // Refresh the saved outfits list
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
+
   useEffect(() => {
     if (!isOpen) {
       containerControls.start("open");
@@ -40,6 +67,54 @@ const OutfitSidebar = () => {
       containerControls.start("close ");
     }
   }, [isOpen]);
+
+  const fetchSavedOutfits = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/saved-outfits?userId=${user?._id}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch saved outfits");
+      }
+
+      const data = await response.json();
+      setSavedOutfits(data.savedOutfits);
+    } catch (error) {
+      console.error("Error fetching saved outfits:", error);
+    }
+  };
+
+  const handleDeleteOutfit = async (outfitId) => {
+    try {
+      const response = await fetch("http://localhost:8080/delete-outfit", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?._id, outfitId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete outfit");
+      }
+
+      // Remove the deleted outfit from state
+      setSavedOutfits((prevOutfits) =>
+        prevOutfits.filter((outfit) => outfit._id !== outfitId)
+      );
+    } catch (error) {
+      console.error("Error deleting outfit:", error);
+    }
+  };
+
+  const onLoadOutfit = (outfitImages) => {
+    setOutfitImages(outfitImages);
+  };
+
+  useEffect(() => {
+    fetchSavedOutfits();
+  }, [refreshTrigger]);
 
   return (
     <motion.aside
@@ -79,7 +154,12 @@ const OutfitSidebar = () => {
       <SearchFits />
       <div className="overflow-y-auto">
         {/* are you sure you want to load in outfit? (current outfit is not saved, save?) */}
-        <OutfitGallery />
+        <SavedOutfits
+          savedOutfits={savedOutfits}
+          onLoadOutfit={onLoadOutfit}
+          toggleFavorite={toggleFavorite}
+          onDeleteOutfit={handleDeleteOutfit}
+        />
       </div>
     </motion.aside>
   );

@@ -9,6 +9,7 @@ const Whiteboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [outfitImages, setOutfitImages] = useState([]); // Store images
   const [closetData, setClosetData] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(false); // Trigger for sidebar refresh
 
   const getClosetImages = async () => {
     try {
@@ -64,10 +65,41 @@ const Whiteboard = () => {
         return bestMatch.score > 0.5 ? bestMatch.url : null;
       });
 
-      setOutfitImages(matchedImages); // Set the images for the whiteboard
+      const outFitImgs = matchedImages.filter((img) => img !== null);
+
+      setOutfitImages(outFitImgs); // Set the images for the whiteboard
     } catch (error) {
       console.error("Error generating outfit:", error);
     }
+  };
+
+  const handleSavedOutfit = async (isFavorite = false) => {
+    if (outfitImages.length === 0) {
+      alert("Please generate an outfit first.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/save-outfit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?._id, outfitImages, isFavorite }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save outfit");
+      }
+
+      setRefreshTrigger(!refreshTrigger); // Trigger sidebar refresh
+    } catch (error) {
+      console.error("Error saving outfit:", error);
+    }
+  };
+
+  const handleImageSelect = (item) => {
+    setOutfitImages((prev) => [...prev, item?.url]); // Add selected image to whiteboard
   };
 
   useEffect(() => {
@@ -78,7 +110,10 @@ const Whiteboard = () => {
     <div className="page-background min-h-screen bg-medium-slate-blue text-white">
       <NavBar />
       <main className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-4 mb-8 text-center space-x-2 h-screen w-screen xl:gap-x-1">
-        <ClosetSidebar />
+        <ClosetSidebar
+          closetData={closetData?.user?.images}
+          onSelectImage={handleImageSelect}
+        />
         <div className="whiteboard-section h-full flex flex-col space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
           <motion.h3
             className="font-bold p-2"
@@ -92,7 +127,7 @@ const Whiteboard = () => {
             className="whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 overflow-y-auto"
             style={{ maxHeight: "80%" }}
           >
-            {outfitImages.every((image) => image === null) ? (
+            {outfitImages?.every((image) => image === null) ? (
               <p className="text-gray-500">No match found</p>
             ) : (
               outfitImages.map(
@@ -110,7 +145,10 @@ const Whiteboard = () => {
             )}
           </div>
           <div className="flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2">
-            <button className="bg-green-400 p-2 w-1/4 rounded text-lg">
+            <button
+              className="bg-green-400 p-2 w-1/4 rounded text-lg"
+              onClick={() => handleSavedOutfit(false)} // Normal save
+            >
               Save
             </button>
             <button
@@ -119,7 +157,10 @@ const Whiteboard = () => {
             >
               Clear
             </button>
-            <button className="bg-yellow-400 p-2 w-1/4 rounded text-lg">
+            <button
+              className="bg-yellow-400 p-2 w-1/4 rounded text-lg"
+              onClick={() => handleSavedOutfit(true)} // Favourite save
+            >
               Favorite
             </button>
           </div>
@@ -132,7 +173,11 @@ const Whiteboard = () => {
             </button>
           </div>
         </div>
-        <OutfitSidebar />
+        <OutfitSidebar
+          setOutfitImages={setOutfitImages}
+          refreshTrigger={refreshTrigger}
+          setRefreshTrigger={setRefreshTrigger}
+        />
       </main>
     </div>
   );

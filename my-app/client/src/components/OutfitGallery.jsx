@@ -1,25 +1,47 @@
 import React from "react";
 
-const SavedOutfits = () => {
-  const num = 100;
-  const squaresArray = Array.from({ length: num });
+import { HeartIcon } from "@heroicons/react/24/solid"; // Import an icon
+
+const SavedOutfits = ({ savedOutfits, onLoadOutfit, onDeleteOutfit }) => {
   return (
-    <div
-      // breakpoints for left padding because the scroll bar on the right adds padding too
-      className="saved-outfit-container flex flex-col justify-center items-center gap-x-4 gap-y-2 
-       "
-    >
-      {squaresArray.map((_, index) => (
-        <div className="js-saved-outfit-card bg-ash-gray flex flex-col justify-center items-center mt-2 p-4 ">
+    <div className="overflow-y-auto">
+      {savedOutfits.length === 0 ? (
+        <p className="text-gray-500">No saved outfits</p>
+      ) : (
+        savedOutfits.map((outfit, index) => (
           <div
             key={index}
-            className="js-outfit-card w-64 h-128 p-2 bg-white border-4 border-black  "
-          ></div>
-          <h4 className="js-saved-outfit-name text-lg text-center w-full">
-            Saved Outfit {index + 1}
-          </h4>
-        </div>
-      ))}
+            className="saved-outfit-item cursor-pointer relative"
+            onClick={() => onLoadOutfit(outfit.outfitImages)}
+          >
+            {outfit.isFavorite && (
+              <div className="absolute top-2 left-0 text-red-500">
+                <HeartIcon className="w-6 h-6" />
+              </div>
+            )}
+            {outfit.outfitImages.map((image, i) => (
+              <img
+                key={i}
+                src={image}
+                alt={`Saved outfit item ${i + 1}`}
+                className="w-16 h-16 object-cover inline-block m-1"
+              />
+            ))}
+
+            <p className="text-sm text-gray-600 mb-2">{`Saved Outfit ${
+              index + 1
+            }`}</p>
+
+            {/* Delete button */}
+            <button
+              className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+              onClick={() => onDeleteOutfit(outfit._id)}
+            >
+              ✖
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 };

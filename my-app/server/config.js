@@ -29,8 +29,15 @@ const Loginschema = new mongoose.Schema({
       url: String,
       key: String,
       caption: String,
-      category: { type: String, required: true }, // New category field
+      category: { type: String, required: true },
       uploadedAt: { type: Date, default: Date.now },
+    },
+  ],
+  savedOutfits: [
+    {
+      outfitImages: [String], // Array of outfit image URLs
+      createdAt: { type: Date, default: Date.now },
+      isFavorite: { type: Boolean, default: false }, // New field for favorite status
     },
   ],
 });
