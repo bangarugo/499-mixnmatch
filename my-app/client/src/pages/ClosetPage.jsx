@@ -69,9 +69,9 @@ const ClosetPage = () => {
           </header>
 
           <section className="js-clothing-options h-16 w-full py-2 flex flex-row gap-x-2 items-center justify-evenly">
-            {categories.map((category) => (
+            {categories.map((category,index) => (
               <button
-                key={category}
+                key={index}
                 onClick={() => handleCategory(category)}
                 className={`p-2 w-1/6 h-12 text-lg rounded border border-black
                   drop-shadow-md
