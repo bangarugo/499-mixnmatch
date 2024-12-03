@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import backgroundImage from '../images/background.jpeg';
 import "../styles/signup.css"; // Ensure this path is correct
+import { motion } from 'framer-motion';
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -41,27 +41,59 @@ const Signup = () => {
     };
     
 
-    const loginStyle = {
-        height: '100vh', // Full viewport height
-        width: '100vw', // Full viewport height
-        backgroundImage: `url(${backgroundImage})`, // Set the background image
-        backgroundSize: 'cover', // Cover the entire area
-        backgroundPosition: 'center', // Center the image
-        display: 'flex', // Center content
-        justifyContent: 'center', // Center horizontally
-        alignItems: 'center', // Center vertically
-    };
+    // const loginStyle = {
+    //     height: '100vh', // Full viewport height
+    //     width: '100vw', // Full viewport height
+    //     backgroundImage: `url(${backgroundImage})`, // Set the background image
+    //     backgroundSize: 'cover', // Cover the entire area
+    //     backgroundPosition: 'center', // Center the image
+    //     display: 'flex', // Center content
+    //     justifyContent: 'center', // Center horizontally
+    //     alignItems: 'center', // Center vertically
+    // };
 
     return (
-        <div style={loginStyle}> {/* Apply the loginStyle here */}
+        <div > {/* Apply the loginStyle here */}
             <div className="wrapper signUp">
                 <div className="form">
-                    <div className="heading">SIGN UP</div>
+                    <motion.div className="heading"
+                    initial = {{ 
+                        x:-100,
+                        opacity: 0
+                      }}
+                      animate = {{
+                        x: 0,
+                        opacity: 1
+                      }}
+                      transition={{
+                        duration: 3,
+                        ease: "circInOut",
+                        type: 'spring',
+                        stiffness: 100,
+                        damping: 10,
+                      }}
+                      whileHover={{
+                        textShadow: '0px 2px 5px rgba(0, 0, 0, 0.5)'
+                      }}
+                    >SIGN UP</motion.div>
                     {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>} {/* Display error message */}
                     {success && <p style={{ color: 'green', textAlign: 'center' }}>{success}</p>} {/* Display success message */}
                     <form onSubmit={handleSignup}>
                         <div>
-                            <label htmlFor="name">Name</label>
+                            <motion.label htmlFor="name"
+                            initial = {{ 
+                                x:-100,
+                                opacity: 0
+                              }}
+                              animate = {{
+                                x: 0,
+                                opacity: 1
+                              }}
+                              transition={{
+                                ease: "circInOut"
+                              }}
+                            
+                            >Name</motion.label>
                             <input
                                 type="text"
                                 id="name"
@@ -72,7 +104,20 @@ const Signup = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="e-mail">E-Mail</label>
+                            <motion.label 
+                            htmlFor="e-mail"
+                            initial = {{ 
+                                x:-100,
+                                opacity: 0
+                              }}
+                              animate = {{
+                                x: 0,
+                                opacity: 1
+                              }}
+                              transition={{
+                                ease: "circInOut"
+                              }}
+                            >E-Mail</motion.label>
                             <input
                                 type="email"
                                 id="e-mail"
@@ -83,7 +128,20 @@ const Signup = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="password">Password</label>
+                            <motion.label 
+                            htmlFor="password"
+                            initial = {{ 
+                                x:-100,
+                                opacity: 0
+                              }}
+                              animate = {{
+                                x: 0,
+                                opacity: 1
+                              }}
+                              transition={{
+                                ease: "circInOut"
+                              }}
+                            >Password</motion.label>
                             <input
                                 type="password"
                                 id="password"
@@ -93,7 +151,20 @@ const Signup = () => {
                                 required
                             />
                         </div>
-                        <button type="submit">Submit</button>
+                        <motion.button 
+                        type="submit"
+                        whileHover={{
+                            scale: 1.15
+                          }}
+                          whileTap={{
+                            scale: 0.85,
+                            rotate: "-2.5deg"
+                          }}
+                          transition={{
+                            duration: 0.125,
+                            ease: "easeInOut"
+                          }}
+                        >Submit</motion.button>
                     </form>
                     <p>
                         Already have an account? <Link to="/login">Login</Link>
