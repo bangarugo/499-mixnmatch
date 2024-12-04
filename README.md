@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+1. Before Setting Up the environment variables : 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* **Ensure you have node version 20.17.0 or greater**   
+    
+  * You can simply check this through this command via terminal   
+    * node \-v  
+  * Here is a link that will walk you through how to install node js via package manager : [https://nodejs.org/en/download/package-manager](https://nodejs.org/en/download/package-manager)
 
-## Available Scripts
+* **Ensure you have React 18 or greater** 
 
-In the project directory, you can run:
+2. **Install Python and Dependencies:**
 
-### `npm start`
+* Install Python version 3.12.0  
+  * Download it from this [website](https://www.python.org/downloads/release/python-3120/) based on your operating system.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. **Set Up Environment Variables for Python:**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* After installation, edit your environment variables. 
 
-### `npm test`
+* Add the path to your Python installation in both User and System Variables as follows:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  * \[Python installation path\]  
+  * \[Python installation path\]\\Scripts
 
-### `npm run build`
+4. **Install Python Dependencies:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Open your terminal and run the following commands, one at a time:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  * python \-m pip install \--upgrade pip
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* pip install fastapi uvicorn transformers torch torchvision pillow
 
-### `npm run eject`
+5. **Set Up Environment Variables**: 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Create a .env file in the root of your project (same level as the server folder) with the following content:   
+  PORT=8080 MONGO\_URI="mongodb+srv://BinIslam:9NPqhipZtZn8nkeg@login.tsyxl.mongodb.net/Login" \# AWS Config AWS\_ACCESS\_KEY\_ID=AKIA2CUNLYMPF4U2OWCQ AWS\_SECRET\_ACCESS\_KEY=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 AWS\_REGION\_NAME=eu-north-1 S3\_BUCKET\_NAME=mixnmatchcloset OPENAI\_API\_KEY="sk-proj-nbAmFY6ni2SLT9xkLCSvgrG5EogEvSYqy8oYQfu1PiJHEcjnKCjYJhUEKYpKX\_YQ8847JI2P1NT3BlbkFJhie4H\_ymccHDyzA5pVptxd970mdqnrlt05OZjCC2iS3ezCNfh12xbIrwcCiOnhzNFA1RFX-2IA"
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. **Navigate to the Server Directory**: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Move into the server directory:   
+  cd server 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+7. **Install Server Dependencies**: 
 
-## Learn More
+* Once in the server directory, run the following command to install the required dependencies: npm install i
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+8. **Start the Server**: 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- You need to start two servers:   
+  * First server is for Python  
+    * **Start the Python Server**  
+    1. Navigate to the server directory and run:
 
-### Code Splitting
+ uvicorn analyze\_fashion:app \--host 127.0.0.1 \--port 8000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Second server is for the Database  
+* **Start the Database Server**  
+  1. Run the following command:  
+     Npm run dev 
 
-### Analyzing the Bundle Size
+You should see the message:  **Database Connected Successfully and Server started on port 8080 in your terminal if everything is set up correctly.** 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**DO NOT CLOSE THE TERMINAL THAT IS CURRENTLY RUNNING THE SERVER \!\!**
 
-### Making a Progressive Web App
+9. **Open a New Terminal Window**: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Open a new terminal window (or tab) to start the client.
 
-### Advanced Configuration
+10. **Navigate to the Client Directory**: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* In the new terminal window, navigate to the client directory:   
+  cd client 
 
-### Deployment
+      
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+11. **Install Client Dependencies**: 
 
-### `npm run build` fails to minify
+* Run the following command to install the required dependencies for the client:   
+  npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+12. **Start the Client**: 
+
+* Once the dependencies are installed, start the client application by running:  
+    
+    
+  npm start 
+
+You need to run the backend server and the frontend client in separate terminal windows. After starting both the server and client, you can register and log in users through the application.
