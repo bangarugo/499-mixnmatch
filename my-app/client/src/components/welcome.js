@@ -1,63 +1,66 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import '../styles/welcome.css';
+import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+// import '../styles/welcome.css';
 
-export default function WelcomePage(){
-    const words = ["ARE YOU READY ?", "EXPRESS YOUR WORLD", "EXPLORE YOUR CREATIVITY", "LET'S GO !"];
-    const [word, setWords] = useState(0);
-    const navigate = useNavigate(); 
+export default function WelcomePage() {
+  const words = [
+    "ARE YOU READY ?",
+    "EXPRESS YOUR WORLD",
+    "EXPLORE YOUR CREATIVITY",
+    "LET'S GO !",
+  ];
+  const [word, setWords] = useState(0);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const interval = setInterval(()=> {
-            setWords((prev) => (prev+1) % words.length);
-        }, 2000);
-        return () => clearInterval(interval);
-    }, [words.length]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWords((prev) => (prev + 1) % words.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [words.length]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollY = window.scrollY;
-            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-            
-            // Debugging log
-            // console.log("ScrollY:", scrollY, "PageHeight:", pageHeight);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const pageHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-            if (scrollY >= pageHeight - 100) {
-                // console.log("Reached the bottom of the page"); // Debugging log
-                navigate('/home'); // Navigate to the home page when near the bottom
-            }
-        };
+      // Debugging log
+      // console.log("ScrollY:", scrollY, "PageHeight:", pageHeight);
 
-        window.addEventListener('scroll', handleScroll);
+      if (scrollY >= pageHeight - 100) {
+        // console.log("Reached the bottom of the page"); // Debugging log
+        navigate("/home"); // Navigate to the home page when near the bottom
+      }
+    };
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [navigate]);
+    window.addEventListener("scroll", handleScroll);
 
-    return(
-        <div className="welcome-container">
-            <AnimatePresence mode = "wait">
-            <motion.h1 
-            key = {words[word]}
-            initial = {{ opacity : 0, y: -50}}
-            animate = {{ opacity: 1, y: 0}}
-            transition={{
-                duration: 0.5,
-            }}
-            exit={{
-                opacity:0, y:50
-            }}
-            className = "text-white text-center text-[100px] font-bold"
-            >
-             {words[word]}
-             </motion.h1>
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [navigate]);
 
-            </AnimatePresence>
-            
-        </div>
-
-    );
-    
+  return (
+    <div className="welcome-container">
+      <AnimatePresence mode="wait">
+        <motion.h1
+          key={words[word]}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+          }}
+          exit={{
+            opacity: 0,
+            y: 50,
+          }}
+          className="text-white text-center text-[100px] font-bold"
+        >
+          {words[word]}
+        </motion.h1>
+      </AnimatePresence>
+    </div>
+  );
 }

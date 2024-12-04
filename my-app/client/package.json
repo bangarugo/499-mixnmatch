@@ -32,6 +32,7 @@
     "react-scripts": "^3.0.1",
     "react-svg": "^16.2.0",
     "react-tooltip": "^5.28.0",
+    "string-similarity": "^4.0.4",
     "tooltip": "^1.6.1",
     "web-vitals": "^2.1.4"
   },
