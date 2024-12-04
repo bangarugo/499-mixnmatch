@@ -60,6 +60,15 @@ const NavBar = () => {
         className="js-nav-links
         text-2xl flex items-center gap-x-5"
       >
+
+        <motion.div variants={navLinkVariants}>
+          <Link to="/login">
+            <h2 className="border-2 border-blue-300 rounded py-1 px-4 ">
+              Login
+            </h2>
+          </Link>
+        </motion.div> 
+
         <motion.div variants={navLinkVariants}>
           <Link to="/home">
             <h2 className="border-2 border-orange-300 rounded py-1 px-4 ">
@@ -67,6 +76,7 @@ const NavBar = () => {
             </h2>
           </Link>
         </motion.div>
+
         <motion.div variants={navLinkVariants}>
           <Link to="/closet">
             <h2 className="border-2 border-blue-300 rounded py-1 px-4 ">
