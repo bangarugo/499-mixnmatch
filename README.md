@@ -32,8 +32,7 @@
 
 5. **Set Up Environment Variables**: 
 
-* Create a .env file in the root of your project (same level as the server folder) with the following content:   
-  PORT=8080 MONGO\_URI="mongodb+srv://BinIslam:9NPqhipZtZn8nkeg@login.tsyxl.mongodb.net/Login" \# AWS Config AWS\_ACCESS\_KEY\_ID=AKIA2CUNLYMPF4U2OWCQ AWS\_SECRET\_ACCESS\_KEY=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 AWS\_REGION\_NAME=eu-north-1 S3\_BUCKET\_NAME=mixnmatchcloset OPENAI\_API\_KEY="sk-proj-nbAmFY6ni2SLT9xkLCSvgrG5EogEvSYqy8oYQfu1PiJHEcjnKCjYJhUEKYpKX\_YQ8847JI2P1NT3BlbkFJhie4H\_ymccHDyzA5pVptxd970mdqnrlt05OZjCC2iS3ezCNfh12xbIrwcCiOnhzNFA1RFX-2IA"
+* Create a .env file in the root of your project (same level as the server folder) with the content from ed.
 
 6. **Navigate to the Server Directory**: 
 
