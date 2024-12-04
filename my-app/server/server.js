@@ -397,6 +397,10 @@ Remember:
 3. Avoid selecting multiple items from the same category.
 4. The captions in your response should be exactly same as you recieve it.
 
+Make sure to follow the following format carefully to create a stylish outfit:
+
+Example: "outfit": "tops 'green jacket jeans against wall', shirts 'wearing tan shirt jeans', pants 'north face pants grey', footwear 'nike air zoom low black white'"
+
 Create the outfit now.
 `;
 
