@@ -48,7 +48,7 @@ const s3 = new S3Client({
 initializePassport(passport);
 app.use(
   session({
-    secret: "your_secret_key", // Replace with your own secret
+    secret: "secret_key", 
     resave: false,
     saveUninitialized: false,
   })
@@ -68,11 +68,7 @@ function ensureAuthenticated(req, res, next) {
 
 // Routes and other logic
 app.get("/", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ message: `Welcome ${req.user.firstName}` });
-  } else {
-    res.redirect("/login");
-  }
+  res.redirect("/home");
 });
 // Route to render login
 app.get("/login", (req, res) => {
