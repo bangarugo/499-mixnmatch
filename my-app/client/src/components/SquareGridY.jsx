@@ -85,8 +85,7 @@ const SquareGridY = ({ closetImages, setClosetImages, setImageDeleted }) => {
             <img
               alt="user items"
               src={image?.url}
-              width="300px"
-              height="300px"
+              className="closet-image w-[150px] h-[150px] object-cover"
             />
           </div>
         ))
@@ -110,9 +109,7 @@ const SquareGridY = ({ closetImages, setClosetImages, setImageDeleted }) => {
               <img
                 alt="item to be deleted"
                 src={selectedItem?.url}
-                className="max-w-xs h-auto mx-auto mb-4"
-                height="200px"
-                width="200px"
+                className="closet-image w-[200px] h-[200px] object-cover"
               />
               <p className="text-sm text-gray-700">
                 Are you sure you want to delete this image?

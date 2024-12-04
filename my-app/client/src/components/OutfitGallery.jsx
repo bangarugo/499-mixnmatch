@@ -35,7 +35,10 @@ const SavedOutfits = ({ savedOutfits, onLoadOutfit, onDeleteOutfit }) => {
             {/* Delete button */}
             <button
               className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
-              onClick={() => onDeleteOutfit(outfit._id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteOutfit(outfit._id);
+              }}
             >
               ✖
             </button>
