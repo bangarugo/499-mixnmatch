@@ -41,7 +41,7 @@ const Profile = ({ user }) => {
             }}
           
     
-          >@{user?.name}</motion.h1>
+          >@{user?.firstName}</motion.h1>
           <p></p>
           <div className="badges-section"></div>
           <motion.button 
