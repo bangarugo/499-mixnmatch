@@ -48,7 +48,7 @@ const s3 = new S3Client({
 initializePassport(passport);
 app.use(
   session({
-    secret: "secret_key", 
+    secret: "secret_key",
     resave: false,
     saveUninitialized: false,
   })

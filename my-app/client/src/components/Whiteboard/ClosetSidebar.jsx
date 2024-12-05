@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   PlusCircleIcon,
   ChevronDoubleRightIcon,
@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Tooltip } from "react-tooltip";
 
-const ClosetSidebar = ({ closetData, onSelectImage }) => {
+const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
   const closetPieceOptions = [
     "Headwear",
     "Tops",
@@ -14,12 +14,29 @@ const ClosetSidebar = ({ closetData, onSelectImage }) => {
     "Pants",
     "Footwear",
   ];
+  const [selectedCategories, setSelectedCategories] = useState([]); // Track selected categories
 
   // Function to get items by category
   const getItemsByCategory = (category) =>
     closetData?.filter(
       (item) => item?.category?.toLowerCase() === category?.toLowerCase()
     );
+
+  const handleImageClick = (item) => {
+    if (selectedCategories.includes(item?.category)) {
+      alert(`You can only select one item from the ${item.category} category.`);
+      return;
+    }
+
+    // Add the selected category to the list and trigger the onSelectImage callback
+    setSelectedCategories((prev) => [...prev, item?.category]);
+    onSelectImage(item);
+  };
+
+  // Reset selected categories when the refreshTrigger changes
+  useEffect(() => {
+    setSelectedCategories([]);
+  }, [refreshTrigger]);
 
   return (
     <aside
@@ -71,8 +88,12 @@ const ClosetSidebar = ({ closetData, onSelectImage }) => {
                         key={item?._id}
                         src={item?.url}
                         alt={item?.caption}
-                        onClick={() => onSelectImage(item)} // Handle image click
-                        className="object-cover w-full h-24 rounded shadow-md cursor-pointer"
+                        onClick={() => handleImageClick(item)} // Handle image click
+                        className={`object-cover w-full h-24 rounded shadow-md cursor-pointer ${
+                          selectedCategories.includes(item?.category)
+                            ? "opacity-50 pointer-events-none" // Dim selected items
+                            : ""
+                        }`}
                       />
                     ))
                   ) : (

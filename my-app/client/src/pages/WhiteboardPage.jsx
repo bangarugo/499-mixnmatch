@@ -113,6 +113,7 @@ const Whiteboard = () => {
         <ClosetSidebar
           closetData={closetData?.user?.images}
           onSelectImage={handleImageSelect}
+          refreshTrigger={refreshTrigger}
         />
         <div className="whiteboard-section h-full flex flex-col space-y-3 text-2xl p-2 w-1/2 rounded-lg xl:p-4 xl:xl:w-3/5 items-center">
           <motion.h3
@@ -153,7 +154,10 @@ const Whiteboard = () => {
             </button>
             <button
               className="bg-red-400 p-2 w-1/4 rounded text-lg"
-              onClick={() => setOutfitImages([])}
+              onClick={() => {
+                setOutfitImages([]);
+                setRefreshTrigger(!refreshTrigger);
+              }}
             >
               Clear
             </button>
