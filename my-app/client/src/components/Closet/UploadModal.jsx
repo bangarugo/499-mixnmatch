@@ -72,26 +72,26 @@ const UploadModal = ({ isOpen, toggleModal, setImageUploaded }) => {
     <>
       {isOpen && (
         <div
-          className="flex flex-col justify-center items-center fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 z-20 border border-black"
+          className="flex flex-col justify-center items-center fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 z-20 "
           onClick={toggleModal}
         >
           <div
-            className="flex flex-col justify-evenly items-center space-y-2 relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-2 rounded shadow-lg border border-black"
+            className="flex flex-col justify-evenly items-center space-y-2 relative bg-ash-gray h-3/4 w-3/4 xl:w-1/2 p-2 rounded shadow-lg border-2 border-black"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="close-button absolute top-2 right-4 text-2xl font-bold"
+              className="close-button absolute top-2 right-4 text-3xl font-bold"
               onClick={toggleModal}
             >
               &times;
             </button>
 
-            <h2 className="upload-header text-xl font-bold text-black underline underline-offset-2 ">
+            <h2 className="upload-header text-3xl font-bold text-black underline underline-offset-2 ">
               Upload Images
             </h2>
 
-            <div className="upload-box  h-1/2 w-3/4 xl:w-3/5 flex flex-col justify-center items-center space-y-2 ">
-              <div className="bg-white size-[500px] border border-black rounded flex justify-center items-center"> 
+            <div className="upload-box  h-1/2  w-3/4 xl:w-3/5 flex flex-col justify-center items-center space-y-4  ">
+              <div className="bg-white min-h-96 min-w-128 border border-black rounded flex justify-center items-center">
                 {selectedImage ? (
                   <img
                     src={URL.createObjectURL(selectedImage)}
@@ -138,15 +138,16 @@ const UploadModal = ({ isOpen, toggleModal, setImageUploaded }) => {
               )}
             </div>
 
-            <div className="save-options flex flex-row gap-x-6  w-full justify-center items-center">
+            <div className="save-options flex flex-row gap-x-3  w-full justify-center items-center">
               <button
-                className="bg-green-500 h-14 w-24 rounded border border-black "
+                className="bg-green-500 h-14 w-36 rounded border border-black  text-white"
                 onClick={handleSave}
               >
                 Save
               </button>
               <button
-                className="bg-red-600 h-14 w-24 rounded border border-black"
+                className="bg-red-600 h-14
+                 w-36 rounded border border-black text-white"
                 onClick={handleDiscard}
               >
                 Discard

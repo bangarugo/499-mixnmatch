@@ -1,12 +1,38 @@
 import React, { useEffect, useState } from "react";
-import {
-  PlusCircleIcon,
-  ChevronDoubleRightIcon,
-  ChevronLeftIcon,
-} from "@heroicons/react/24/solid";
-import { Tooltip } from "react-tooltip";
+import { motion, useAnimationControls } from "framer-motion";
+const containerVariants = {
+  close: {
+    width: "0",
+    transition: {
+      type: "spring",
+      stiffness: 110,
+      damping: 20,
+      duration: 2,
+    },
+  },
+  open: {
+    width: "25%",
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      duration: 2,
+    },
+  },
+};
 
 const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerControls = useAnimationControls();
+
+  useEffect(() => {
+    if (!isOpen) {
+      containerControls.start("open");
+    } else {
+      containerControls.start("close");
+    }
+  }, [isOpen]);
+
   const closetPieceOptions = [
     "Headwear",
     "Tops",
@@ -39,28 +65,22 @@ const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
   }, [refreshTrigger]);
 
   return (
-    <aside
-      className="closet-section bg-medium-slate-blue flex flex-col space-y-3 p-2 w-1/4 rounded-r-lg  
-      xl:p-4 xl:w-1/5"
+    <motion.aside
+      variants={containerVariants}
+      animate={containerControls}
+      initial="close"
+      className="closet-section bg-neutral-200/50 flex flex-col space-y-3 p-2 w-1/4  rounded-r-lg border-2 border-black 
+    xl:p-4 xl:w-1/5"
     >
       <div className="closet-header flex justify-between items-center">
-        <button className="size-6">
-          <a className="fold-closet-tab">
-            <ChevronLeftIcon />
-          </a>
-        </button>
-        <h3 className="text-2xl font-bold p-1 w-full">Closet Pieces</h3>
-        <button className="size-6">
-          <a className="max-closet-tab">
-            <ChevronDoubleRightIcon />
-          </a>
-        </button>
-        <Tooltip anchorSelect=".fold-closet-tab" place="right">
-          Collapse
-        </Tooltip>
-        <Tooltip anchorSelect=".max-closet-tab" place="right">
-          Maximize
-        </Tooltip>
+        <motion.h3
+          className="text-2xl font-bold p-1 w-full"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          Closet Pieces
+        </motion.h3>
       </div>
 
       <div className="overflow-y-scroll">
@@ -73,13 +93,10 @@ const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
                 key={closetPiece}
                 className="flex flex-col items-center justify-evenly"
               >
-                <div className="bg-magnolia text-black w-full py-2 sticky top-0 flex items-center">
+                <div className="bg-magnolia text-black w-full py-2 sticky top-0 flex items-center border border-black">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-light text-xl">{closetPiece}</h3>
                   </div>
-                  <button className="size-6 absolute right-0">
-                    <PlusCircleIcon className="w-5" />
-                  </button>
                 </div>
                 <div className="js-closet-option-container w-full h-full overflow-y-auto grid grid-cols-2 gap-2 p-2">
                   {items?.length > 0 ? (
@@ -97,9 +114,9 @@ const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
                       />
                     ))
                   ) : (
-                    <p className="text-center text-sm text-gray-500">
-                      No items found.
-                    </p>
+                    <div className="flex justify-center items-center ">
+                      <p className=" text-sm text-gray-500">No items found.</p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -107,7 +124,7 @@ const ClosetSidebar = ({ closetData, onSelectImage, refreshTrigger }) => {
           })}
         </section>
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 

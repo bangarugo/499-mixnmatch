@@ -33,7 +33,7 @@ const navLinkVariants = {
 const NavBar = () => {
   return (
     <motion.div
-      className="apply bg-black text-white py-8 px-10 flex justify-between items-center "
+      className="apply bg-black text-white w-full  px-8 flex justify-between items-center "
       variants={navBarVariants}
       initial="hidden"
       animate="show"

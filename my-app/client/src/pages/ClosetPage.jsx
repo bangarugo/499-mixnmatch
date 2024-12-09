@@ -116,12 +116,12 @@ const Closet = ({ setAllClosetData }) => {
                 xl:w-1/3 
                 focus:outline-none focus:ring focus:ring-medium-slate-blue"
               />
-              <button
+              {/* <button
                 className="bg-yellow-500 text-lg px-4  h-12 w-36 rounded border border-black font-bold text-white
               "
               >
                 Favorites
-              </button>
+              </button> */}
               {/* <button
                 className="bg-moonstone px-4 h-12 w-36 text-lg font-bold rounded drop-shadow-md border border-black
                     transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"

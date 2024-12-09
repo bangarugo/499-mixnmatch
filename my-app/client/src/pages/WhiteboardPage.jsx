@@ -109,7 +109,7 @@ const Whiteboard = () => {
   return (
     <div className="page-background min-h-screen bg-medium-slate-blue text-white">
       <NavBar />
-      <main className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-4 mb-8 text-center space-x-2 h-screen w-screen xl:gap-x-1">
+      <main className="bg-medium-slate-blue flex flex-row justify-between pb-2 pt-2  text-center space-x-2 h-screen w-screen xl:gap-x-1">
         <ClosetSidebar
           closetData={closetData?.user?.images}
           onSelectImage={handleImageSelect}
@@ -122,10 +122,10 @@ const Whiteboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Current Outfit
+            <h2 className=" underline underline-offset-4">Current Outfit</h2>
           </motion.h3>
           <div
-            className="whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 overflow-y-auto"
+            className="whiteboard-space bg-white h-4/5 w-full rounded-sm flex flex-col items-center p-2 overflow-y-auto border-2 border-black"
             style={{ maxHeight: "80%" }}
           >
             {outfitImages?.every((image) => image === null) ? (
@@ -147,13 +147,13 @@ const Whiteboard = () => {
           </div>
           <div className="flex flex-row w-3/5 justify-between items-center text-center py-2 space-x-2">
             <button
-              className="bg-green-400 p-2 w-1/4 rounded text-lg"
+              className="bg-green-400 p-2 w-1/4 rounded text-lg border border-black"
               onClick={() => handleSavedOutfit(false)} // Normal save
             >
               Save
             </button>
             <button
-              className="bg-red-400 p-2 w-1/4 rounded text-lg"
+              className="bg-red-400 p-2 w-1/4 rounded text-lg border border-black"
               onClick={() => {
                 setOutfitImages([]);
                 setRefreshTrigger(!refreshTrigger);
@@ -162,7 +162,7 @@ const Whiteboard = () => {
               Clear
             </button>
             <button
-              className="bg-yellow-400 p-2 w-1/4 rounded text-lg"
+              className="bg-yellow-400 p-2 w-1/4 rounded text-lg border border-black"
               onClick={() => handleSavedOutfit(true)} // Favourite save
             >
               Favorite
@@ -170,7 +170,7 @@ const Whiteboard = () => {
           </div>
           <div className="mix-button-container w-full flex justify-center">
             <button
-              className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center"
+              className="mix-button p-4 xl:w-1/4 text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded flex justify-center items-center border border-black"
               onClick={handleMixAndMatch}
             >
               <span className="font-bold">Mix it up!</span>

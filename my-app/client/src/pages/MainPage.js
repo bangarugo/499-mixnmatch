@@ -60,7 +60,7 @@ const MainPage = () => {
 
 
   return (
-    <div className="relative">
+    <div className="relative w-screen">
       <NavBar />
       {/* <main  */}
 
