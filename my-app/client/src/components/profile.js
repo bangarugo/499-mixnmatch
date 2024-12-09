@@ -7,7 +7,28 @@ import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import Navbar from '../components/NavBar';
 
-const Profile = ({ user }) => {
+const Profile = () => {
+const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    // Fetch user data from the server
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/profile", {
+          withCredentials: true, 
+        });
+        const user = response.data.user;
+        setUserName(user.firstName || "Guest");
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserName("Unauthorized User");
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+
     return (
       <div className="Navbar">
       <Navbar />
@@ -41,7 +62,7 @@ const Profile = ({ user }) => {
             }}
           
     
-          >@{user?.name}</motion.h1>
+          >@{userName}</motion.h1>
           <p></p>
           <div className="badges-section"></div>
           <motion.button 
