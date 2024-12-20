@@ -30,14 +30,17 @@
 
 * pip install fastapi uvicorn transformers torch torchvision pillow
 
-5. **Set Up Environment Variables**: 
+5. **Set Up Environment Variables**:
+   Create a .env file in the root of your project (same level as the server folder) with content from email.
 
     Email razeenali22@gmail.com for access to the .env file 
 
-6. **Navigate to the Server Directory**: 
+7. **Navigate to the Server Directory**: 
 
-* Move into the server directory:   
-  cd server 
+* Move into the server directory:
+  
+  cd my-app
+  cd server
 
 7. **Install Server Dependencies**: 
 
@@ -68,7 +71,8 @@ You should see the message:  **Database Connected Successfully and Server starte
 10. **Navigate to the Client Directory**: 
 
 * In the new terminal window, navigate to the client directory:   
-  cd client 
+  cd my-app
+  cd client
 
       
 

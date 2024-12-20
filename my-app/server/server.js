@@ -131,7 +131,7 @@ app.post("/login", async (req, res) => {
     }
 
     // If login is successful, return a success message
-    res.status(200).json({ message: `Welcome ${user.firstName}`, user });
+    res.status(200).json({ message: `Welcome ${user.firstName}`,  user: { email: user.email, name: user.firstName } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" }); // Return error as JSON
